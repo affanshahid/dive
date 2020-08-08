@@ -1,9 +1,9 @@
 package com.affanshahid.dive.runners;
 
-import com.affanshahid.dive.workflow.Workflow;
+import com.affanshahid.dive.workflow.WorkflowTree;
 
 public interface Runner {
-    void setWorkflow(Workflow workflow);
+    void setWorkflow(WorkflowTree workflow);
 
     void run() throws Exception;
 }

@@ -10,7 +10,7 @@ import com.affanshahid.dive.runners.stream.operators.FilterRunner;
 import com.affanshahid.dive.runners.stream.outputs.LoggerRunner;
 import com.affanshahid.dive.runners.stream.readers.JSONReaderRunner;
 import com.affanshahid.dive.workflow.Node;
-import com.affanshahid.dive.workflow.Workflow;
+import com.affanshahid.dive.workflow.WorkflowTree;
 import com.affanshahid.dive.workflow.operators.Filter;
 import com.affanshahid.dive.workflow.outputs.Logger;
 import com.affanshahid.dive.workflow.readers.JSONReader;
@@ -52,7 +52,7 @@ public class StreamRunner implements Runner {
     }
 
     @Override
-    public void setWorkflow(Workflow workflow) {
+    public void setWorkflow(WorkflowTree workflow) {
         try {
             outputs = new ArrayList<>();
             root = buildRunnerNode(workflow.getRoot());

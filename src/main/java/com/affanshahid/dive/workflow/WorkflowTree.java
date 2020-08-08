@@ -1,12 +1,12 @@
 package com.affanshahid.dive.workflow;
 
-public class Workflow {
+public class WorkflowTree {
     private Node<?> root;
 
-    public Workflow() {
+    public WorkflowTree() {
     }
 
-    public Workflow(Node<?> root) {
+    public WorkflowTree(Node<?> root) {
         this.root = root;
     }
 
