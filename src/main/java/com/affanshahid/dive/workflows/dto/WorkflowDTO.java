@@ -2,9 +2,19 @@ package com.affanshahid.dive.workflows.dto;
 
 import java.util.UUID;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 public class WorkflowDTO {
+    @NotNull
     private UUID id;
+
+    @NotBlank
     private String name;
+
+    @Valid
+    @NotNull
     private WorkflowTreeDTO tree;
 
     public UUID getId() {

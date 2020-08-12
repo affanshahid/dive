@@ -28,7 +28,7 @@ public class WorkflowTreeConverter {
         return builder.build();
     }
 
-    public WorkflowTree fromDTO(WorkflowTreeDTO dto) throws ConversionException {
+    public WorkflowTree fromDTO(WorkflowTreeDTO dto) {
         var builder = new WorkflowTreeBuilder(dto);
         try {
             return builder.build();

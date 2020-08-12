@@ -2,9 +2,12 @@ package com.affanshahid.dive.workflows;
 
 import static java.util.stream.Collectors.toList;
 
+import java.util.UUID;
 import java.util.stream.StreamSupport;
 
+import com.affanshahid.dive.commons.ResourceNotFoundException;
 import com.affanshahid.dive.workflows.dto.CreateWorkflowDTO;
+import com.affanshahid.dive.workflows.dto.UpdateWorkflowDTO;
 import com.affanshahid.dive.workflows.dto.WorkflowDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,12 +28,39 @@ public class WorkflowServiceImpl implements WorkflowService {
     }
 
     @Override
-    public WorkflowDTO create(CreateWorkflowDTO dto) throws ConversionException {
+    public WorkflowDTO findDTOById(UUID id) {
+        return workflowToDTO(findById(id));
+    }
+
+    @Override
+    public Workflow findById(UUID id) {
+        return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id.toString()));
+    }
+
+    @Override
+    public WorkflowDTO create(CreateWorkflowDTO dto) {
         var workflow = new Workflow();
         workflow.setName(dto.getName());
         workflow.setTree(converter.fromDTO(dto.getTree()));
 
         return workflowToDTO(repository.save(workflow));
+    }
+
+    @Override
+    public WorkflowDTO update(UUID id, UpdateWorkflowDTO dto) {
+        var workflow = findById(id);
+
+        dto.getName().ifPresent(name -> workflow.setName(name));
+        dto.getTree().map(converter::fromDTO).ifPresent(tree -> workflow.setTree(tree));
+
+        return workflowToDTO(repository.save(workflow));
+    }
+
+    @Override
+    public WorkflowDTO delete(UUID id) {
+        var dto = findDTOById(id);
+        repository.deleteById(id);
+        return dto;
     }
 
     private WorkflowDTO workflowToDTO(Workflow workflow) {

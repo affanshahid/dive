@@ -2,15 +2,28 @@ package com.affanshahid.dive.designer.dto;
 
 import java.util.List;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 import com.fasterxml.jackson.module.jsonSchema.JsonSchema;
 
 public class DesignerNodeDTO {
+    @NotBlank
     private String type;
+
+    @NotBlank
     private String className;
+
+    @NotNull
     private List<String> inputPorts;
+
+    @NotNull
     private List<String> outputPorts;
 
+    @NotBlank
     private String configClassName;
+
+    @NotNull
     private JsonSchema configSchema;
 
     public String getType() {

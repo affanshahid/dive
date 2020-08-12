@@ -1,7 +1,15 @@
 package com.affanshahid.dive.workflows.dto;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 public class CreateWorkflowDTO {
+    @NotBlank
     private String name;
+
+    @Valid
+    @NotNull
     private WorkflowTreeDTO tree;
 
     public WorkflowTreeDTO getTree() {

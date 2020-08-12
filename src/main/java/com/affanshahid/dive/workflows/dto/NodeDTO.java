@@ -3,16 +3,29 @@ package com.affanshahid.dive.workflows.dto;
 import java.util.List;
 import java.util.Objects;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 public class NodeDTO<T> {
     @JsonProperty("@class")
+    @NotBlank
     private String className;
+
+    @NotBlank
     private String id;
+
+    @NotBlank
     private String label;
+
+    @NotNull
     private List<String> inputPorts;
+
+    @NotNull
     private List<String> outputPorts;
+
     @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "@class")
     private T config;
 

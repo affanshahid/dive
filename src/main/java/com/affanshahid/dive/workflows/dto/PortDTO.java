@@ -3,10 +3,20 @@ package com.affanshahid.dive.workflows.dto;
 import java.util.List;
 import java.util.Objects;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 public class PortDTO {
+    @NotBlank
     private String id;
+
+    @NotBlank
     private String label;
+
+    @NotNull
     private List<String> connections;
+
+    @NotBlank
     private String node;
 
     public String getNode() {
