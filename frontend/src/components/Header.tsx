@@ -1,5 +1,5 @@
 import { Box, Flex, Image, Link as Anchor } from "@chakra-ui/core";
-import React, { ReactNode } from "react";
+import React, { ReactNode, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { ReactComponent as Hamburger } from "../assets/hamburger.svg";
 import logo from "../assets/logo.svg";
@@ -10,16 +10,14 @@ interface MenuItemProps {
 }
 
 const MenuItem = ({ children, path }: MenuItemProps) => (
-  <Link to={path}>
-    <Anchor mt={{ base: 4, md: 0 }} mr={6} display="block">
-      {children}
-    </Anchor>
-  </Link>
+  <Anchor as="span" mt={{ base: 4, md: 0 }} mr={6} display="block">
+    <Link to={path}>{children}</Link>
+  </Anchor>
 );
 
 function Header() {
   const [show, setShow] = React.useState(false);
-  const handleToggle = () => setShow(!show);
+  const handleToggle = useCallback(() => setShow(!show), [show]);
 
   return (
     <Flex
