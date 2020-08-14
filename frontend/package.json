@@ -26,11 +26,15 @@
     "styled-components": "^5.1.1",
     "typescript": "^3.7.5"
   },
+  "devDependencies": {
+    "@openapitools/openapi-generator-cli": "^1.0.15-4.3.1"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "gen": "openapi-generator generate -i http://localhost:8080/v2/api-docs -g typescript-fetch -o ./src/services/generated/ --additional-properties=typescriptThreePlus=true"
   },
   "proxy": "http://localhost:8080",
   "eslintConfig": {

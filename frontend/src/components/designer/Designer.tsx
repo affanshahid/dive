@@ -1,3 +1,4 @@
+import { Box } from "@chakra-ui/core";
 import { FlowChartWithState } from "@mrblenny/react-flow-chart";
 import React from "react";
 import Layout from "../Layout";
@@ -134,7 +135,9 @@ const chartSimple = {
 function Designer() {
   return (
     <Layout>
-      <FlowChartWithState initialValue={chartSimple as any} />
+      <Box height="100vh">
+        <FlowChartWithState initialValue={chartSimple as any} />
+      </Box>
     </Layout>
   );
 }

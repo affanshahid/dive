@@ -28,6 +28,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2).select()
                 .apis(RequestHandlerSelectors.basePackage("com.affanshahid.dive")).paths(PathSelectors.any()).build()
                 .alternateTypeRules(newRule(resolver.resolve(Iterable.class, WildcardType.class),
-                        resolver.resolve(List.class, WildcardType.class)));
+                        resolver.resolve(List.class, WildcardType.class)))
+                .forCodeGeneration(true);
     }
 }
