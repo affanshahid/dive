@@ -8,7 +8,7 @@ import { DesignerNodeDTO } from "../../services/generated";
 
 export type Payload = {
   ports: Record<string, Partial<IPort>>;
-  properties: { label: string };
+  properties: { label: string; configSchema: any };
 };
 
 const iconMapping: Record<string, IconType> = {
@@ -25,7 +25,7 @@ function NodeListItem({ node }: NodeListItemProps) {
   const payload: Payload = useMemo(() => {
     const result: Payload = {
       ports: {},
-      properties: { label: nodeName(node) },
+      properties: { label: nodeName(node), configSchema: node.configSchema },
     };
 
     for (const label of node.inputPorts) {

@@ -13,13 +13,6 @@
  */
 
 import { exists, mapValues } from "../runtime";
-import {
-  JsonSchema,
-  JsonSchemaFromJSON,
-  JsonSchemaFromJSONTyped,
-  JsonSchemaToJSON,
-} from "./";
-
 /**
  *
  * @export
@@ -40,10 +33,10 @@ export interface DesignerNodeDTO {
   configClassName: string;
   /**
    *
-   * @type {JsonSchema}
+   * @type {object}
    * @memberof DesignerNodeDTO
    */
-  configSchema: JsonSchema;
+  configSchema?: object;
   /**
    *
    * @type {Array<string>}
@@ -78,7 +71,9 @@ export function DesignerNodeDTOFromJSONTyped(
   return {
     className: json["className"],
     configClassName: json["configClassName"],
-    configSchema: JsonSchemaFromJSON(json["configSchema"]),
+    configSchema: !exists(json, "configSchema")
+      ? undefined
+      : json["configSchema"],
     inputPorts: json["inputPorts"],
     outputPorts: json["outputPorts"],
     type: json["type"],
@@ -95,7 +90,7 @@ export function DesignerNodeDTOToJSON(value?: DesignerNodeDTO | null): any {
   return {
     className: value.className,
     configClassName: value.configClassName,
-    configSchema: JsonSchemaToJSON(value.configSchema),
+    configSchema: value.configSchema,
     inputPorts: value.inputPorts,
     outputPorts: value.outputPorts,
     type: value.type,

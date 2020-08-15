@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.affanshahid.dive.workflow.Node;
 import com.affanshahid.dive.workflow.Port;
+import com.kjetland.jackson.jsonSchema.annotations.JsonSchemaInject;
 
 public class Filter extends Node<Filter.Config> {
     public static final int PORT_IN_DATA = 0;
@@ -36,6 +37,8 @@ public class Filter extends Node<Filter.Config> {
 
     public static class Config {
         private String filterKey;
+
+        @JsonSchemaInject(json = "{\"oneOf\":[{\"type\":\"string\",\"title\":\"string\"},{\"type\":\"number\",\"title\":\"number\"}]\n}")
         private Object filterValue;
 
         public Object getFilterValue() {

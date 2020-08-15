@@ -1,12 +1,14 @@
 import { Box, SimpleGrid } from "@chakra-ui/core";
 import React from "react";
 import Layout from "../Layout";
+import ConfigDrawer from "./ConfigDrawer";
 import NodeList from "./NodeList";
 import WorkflowCanvas from "./WorkflowCanvas";
 
 function Designer() {
   return (
     <Layout>
+      <ConfigDrawer />
       <SimpleGrid columns={12} spacing={0} h="calc(100vh - 86px)">
         <Box gridColumn="1/4" shadow="lg">
           <NodeList />

@@ -9,9 +9,10 @@ import java.util.List;
 import com.affanshahid.dive.designer.dto.DesignerNodeDTO;
 import com.affanshahid.dive.workflow.Node;
 import com.affanshahid.dive.workflow.Port;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.module.jsonSchema.JsonSchemaGenerator;
+import com.kjetland.jackson.jsonSchema.JsonSchemaConfig;
+import com.kjetland.jackson.jsonSchema.JsonSchemaDraft;
+import com.kjetland.jackson.jsonSchema.JsonSchemaGenerator;
 
 import org.reflections.Reflections;
 import org.springframework.stereotype.Service;
@@ -48,20 +49,22 @@ public class DesignerServiceImpl implements DesignerService {
             var type = pkgSegments[pkgSegments.length - 2];
             ParameterizedType superClass = (ParameterizedType) clazz.getGenericSuperclass();
             var cfgClazz = (Class<?>) superClass.getActualTypeArguments()[0];
-            JsonSchemaGenerator jg = new JsonSchemaGenerator(new ObjectMapper());
+            JsonSchemaConfig config = JsonSchemaConfig.vanillaJsonSchemaDraft4()
+                    .withJsonSchemaDraft(JsonSchemaDraft.DRAFT_07);
+            JsonSchemaGenerator jg = new JsonSchemaGenerator(new ObjectMapper(), config);
             Node<?> node = clazz.getConstructor(String.class, String.class).newInstance("N/A", "N/A");
 
             var dto = new DesignerNodeDTO();
 
             dto.setClassName(clazz.getCanonicalName());
             dto.setConfigClassName(cfgClazz.getCanonicalName());
-            dto.setConfigSchema(jg.generateSchema(cfgClazz));
+            dto.setConfigSchema(jg.generateJsonSchema(cfgClazz));
             dto.setInputPorts(node.getInputPorts().stream().map(Port::getLabel).collect(toList()));
             dto.setOutputPorts(node.getOutputPorts().stream().map(Port::getLabel).collect(toList()));
             dto.setType(type);
 
             return dto;
-        } catch (ReflectiveOperationException | JsonProcessingException ex) {
+        } catch (ReflectiveOperationException ex) {
             throw new ConversionException(ex);
         }
     }

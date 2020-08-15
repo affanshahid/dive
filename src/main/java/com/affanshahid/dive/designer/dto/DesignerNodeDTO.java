@@ -5,7 +5,7 @@ import java.util.List;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.module.jsonSchema.JsonSchema;
+import com.fasterxml.jackson.databind.JsonNode;
 
 public class DesignerNodeDTO {
     @NotBlank
@@ -24,17 +24,17 @@ public class DesignerNodeDTO {
     private String configClassName;
 
     @NotNull
-    private JsonSchema configSchema;
+    private JsonNode configSchema;
 
     public String getType() {
         return type;
     }
 
-    public JsonSchema getConfigSchema() {
+    public JsonNode getConfigSchema() {
         return configSchema;
     }
 
-    public void setConfigSchema(JsonSchema configSchema) {
+    public void setConfigSchema(JsonNode configSchema) {
         this.configSchema = configSchema;
     }
 
