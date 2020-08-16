@@ -13,6 +13,23 @@ export const designerSelectedNode = selector({
   },
 });
 
+export const designerSelectedNodeLabel = selector<string | null>({
+  key: "designerSelectedNodeProperties",
+  get({ get }) {
+    return get(designerSelectedNode)?.properties.label;
+  },
+  set({ get, set }, label) {
+    const node = get(designerSelectedNode);
+    if (node == null) return;
+
+    const chart = get(designerChart);
+    const cloned = clone(chart);
+
+    cloned.nodes[node.id].properties.label = label;
+    set(designerChart, cloned);
+  },
+});
+
 export const designerSelectedNodeConfig = selector({
   key: "designerSelectedNodeConfig",
   get({ get }) {

@@ -15,8 +15,8 @@ function NodeList() {
   if (state === "rejected") return <p>Error: {error!.message}</p>;
   else if (state === "pending")
     children = new Array(15).fill(0).map((_, i) => (
-      <ListItem key={i}>
-        <Skeleton w="full" height="20px" />
+      <ListItem w="full" key={i}>
+        <Skeleton mx={4} height="25px" />
       </ListItem>
     ));
   else
@@ -24,7 +24,11 @@ function NodeList() {
       <NodeListItem key={node.className} node={node} />
     ));
 
-  return <List py={2}>{children}</List>;
+  return (
+    <List py={2} spacing={4}>
+      {children}
+    </List>
+  );
 }
 
 export default NodeList;

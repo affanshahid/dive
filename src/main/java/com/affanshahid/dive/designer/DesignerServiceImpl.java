@@ -56,8 +56,8 @@ public class DesignerServiceImpl implements DesignerService {
 
             var dto = new DesignerNodeDTO();
 
-            dto.setClassName(clazz.getCanonicalName());
-            dto.setConfigClassName(cfgClazz.getCanonicalName());
+            dto.setClassName(clazz.getName());
+            dto.setConfigClassName(cfgClazz.getName());
             dto.setConfigSchema(jg.generateJsonSchema(cfgClazz));
             dto.setInputPorts(node.getInputPorts().stream().map(Port::getLabel).collect(toList()));
             dto.setOutputPorts(node.getOutputPorts().stream().map(Port::getLabel).collect(toList()));
