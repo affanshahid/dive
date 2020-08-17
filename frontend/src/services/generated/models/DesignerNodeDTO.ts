@@ -36,7 +36,7 @@ export interface DesignerNodeDTO {
    * @type {object}
    * @memberof DesignerNodeDTO
    */
-  configSchema?: object;
+  configSchema: object;
   /**
    *
    * @type {Array<string>}
@@ -71,9 +71,7 @@ export function DesignerNodeDTOFromJSONTyped(
   return {
     className: json["className"],
     configClassName: json["configClassName"],
-    configSchema: !exists(json, "configSchema")
-      ? undefined
-      : json["configSchema"],
+    configSchema: json["configSchema"],
     inputPorts: json["inputPorts"],
     outputPorts: json["outputPorts"],
     type: json["type"],

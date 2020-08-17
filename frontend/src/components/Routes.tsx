@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Designer from "./designer/Designer";
 import Home from "./home/Home";
+import Workflows from "./workflows/Workflows";
 
 function Routes() {
   return (
@@ -9,6 +10,7 @@ function Routes() {
       <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/designer" component={Designer} />
+        <Route path="/workflows" component={Workflows} />
       </Switch>
     </Router>
   );

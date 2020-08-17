@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import com.affanshahid.dive.workflows.dto.CreateWorkflowDTO;
 import com.affanshahid.dive.workflows.dto.UpdateWorkflowDTO;
 import com.affanshahid.dive.workflows.dto.WorkflowDTO;
+import com.fasterxml.jackson.annotation.JsonView;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,6 +28,7 @@ public class WorkflowController {
     private WorkflowService service;
 
     @GetMapping
+    @JsonView(View.Summary.class)
     public Iterable<WorkflowDTO> findAll() {
         return service.findAll();
     }

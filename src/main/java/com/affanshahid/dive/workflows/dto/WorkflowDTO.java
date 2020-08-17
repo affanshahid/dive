@@ -6,11 +6,16 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.affanshahid.dive.workflows.View;
+import com.fasterxml.jackson.annotation.JsonView;
+
 public class WorkflowDTO {
     @NotNull
+    @JsonView(View.Summary.class)
     private UUID id;
 
     @NotBlank
+    @JsonView(View.Summary.class)
     private String name;
 
     @Valid

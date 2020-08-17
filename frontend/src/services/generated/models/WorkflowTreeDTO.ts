@@ -35,13 +35,13 @@ export interface WorkflowTreeDTO {
    * @type {Array<NodeDTOOfobject>}
    * @memberof WorkflowTreeDTO
    */
-  nodes: Array<NodeDTOOfobject>;
+  nodes?: Array<NodeDTOOfobject>;
   /**
    *
    * @type {Array<PortDTO>}
    * @memberof WorkflowTreeDTO
    */
-  ports: Array<PortDTO>;
+  ports?: Array<PortDTO>;
   /**
    *
    * @type {string}
@@ -62,8 +62,12 @@ export function WorkflowTreeDTOFromJSONTyped(
     return json;
   }
   return {
-    nodes: (json["nodes"] as Array<any>).map(NodeDTOOfobjectFromJSON),
-    ports: (json["ports"] as Array<any>).map(PortDTOFromJSON),
+    nodes: !exists(json, "nodes")
+      ? undefined
+      : (json["nodes"] as Array<any>).map(NodeDTOOfobjectFromJSON),
+    ports: !exists(json, "ports")
+      ? undefined
+      : (json["ports"] as Array<any>).map(PortDTOFromJSON),
     root: json["root"],
   };
 }
@@ -76,8 +80,14 @@ export function WorkflowTreeDTOToJSON(value?: WorkflowTreeDTO | null): any {
     return null;
   }
   return {
-    nodes: (value.nodes as Array<any>).map(NodeDTOOfobjectToJSON),
-    ports: (value.ports as Array<any>).map(PortDTOToJSON),
+    nodes:
+      value.nodes === undefined
+        ? undefined
+        : (value.nodes as Array<any>).map(NodeDTOOfobjectToJSON),
+    ports:
+      value.ports === undefined
+        ? undefined
+        : (value.ports as Array<any>).map(PortDTOToJSON),
     root: value.root,
   };
 }

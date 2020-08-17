@@ -23,6 +23,9 @@ import {
   WorkflowDTO,
   WorkflowDTOFromJSON,
   WorkflowDTOToJSON,
+  WorkflowDTOSummaryView,
+  WorkflowDTOSummaryViewFromJSON,
+  WorkflowDTOSummaryViewToJSON,
 } from "../models";
 
 export interface CreateUsingPOSTRequest {
@@ -133,7 +136,9 @@ export class WorkflowControllerApi extends runtime.BaseAPI {
   /**
    * findAll
    */
-  async findAllUsingGETRaw(): Promise<runtime.ApiResponse<Array<WorkflowDTO>>> {
+  async findAllUsingGETRaw(): Promise<
+    runtime.ApiResponse<Array<WorkflowDTOSummaryView>>
+  > {
     const queryParameters: runtime.HTTPQuery = {};
 
     const headerParameters: runtime.HTTPHeaders = {};
@@ -146,14 +151,14 @@ export class WorkflowControllerApi extends runtime.BaseAPI {
     });
 
     return new runtime.JSONApiResponse(response, (jsonValue) =>
-      jsonValue.map(WorkflowDTOFromJSON)
+      jsonValue.map(WorkflowDTOSummaryViewFromJSON)
     );
   }
 
   /**
    * findAll
    */
-  async findAllUsingGET(): Promise<Array<WorkflowDTO>> {
+  async findAllUsingGET(): Promise<Array<WorkflowDTOSummaryView>> {
     const response = await this.findAllUsingGETRaw();
     return await response.value();
   }

@@ -46,6 +46,7 @@ function Header() {
         flexGrow={1}
       >
         <MenuItem path="/designer">Designer</MenuItem>
+        <MenuItem path="/workflows">Workflows</MenuItem>
       </Box>
     </Flex>
   );

@@ -1,3 +1,4 @@
+import autoBind from "auto-bind";
 import {
   Configuration,
   DesignerControllerApi,
@@ -6,5 +7,5 @@ import {
 
 const conf = new Configuration({ basePath: window.location.origin });
 
-export const designerService = new DesignerControllerApi(conf);
-export const workflowsService = new WorkflowControllerApi(conf);
+export const designerService = autoBind(new DesignerControllerApi(conf));
+export const workflowsService = autoBind(new WorkflowControllerApi(conf));
