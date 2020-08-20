@@ -12,10 +12,10 @@
  * Do not edit the class manually.
  */
 
-export const BASE_PATH = "http://localhost:8080".replace(/\/+$/, "");
+export const BASE_PATH = 'http://localhost:8080'.replace(/\/+$/, '');
 
 const isBlob = (value: any) =>
-  typeof Blob !== "undefined" && value instanceof Blob;
+  typeof Blob !== 'undefined' && value instanceof Blob;
 
 /**
  * This is the base class for all generated API classes.
@@ -35,7 +35,7 @@ export class BaseAPI {
 
   withPreMiddleware<T extends BaseAPI>(
     this: T,
-    ...preMiddlewares: Array<Middleware["pre"]>
+    ...preMiddlewares: Array<Middleware['pre']>
   ) {
     const middlewares = preMiddlewares.map((pre) => ({ pre }));
     return this.withMiddleware<T>(...middlewares);
@@ -43,7 +43,7 @@ export class BaseAPI {
 
   withPostMiddleware<T extends BaseAPI>(
     this: T,
-    ...postMiddlewares: Array<Middleware["post"]>
+    ...postMiddlewares: Array<Middleware['post']>
   ) {
     const middlewares = postMiddlewares.map((post) => ({ post }));
     return this.withMiddleware<T>(...middlewares);
@@ -67,10 +67,10 @@ export class BaseAPI {
       // only add the querystring to the URL if there are query parameters.
       // this is done to avoid urls ending with a "?" character which buggy webservers
       // do not handle correctly sometimes.
-      url += "?" + this.configuration.queryParamsStringify(context.query);
+      url += '?' + this.configuration.queryParamsStringify(context.query);
     }
     const body =
-      (typeof FormData !== "undefined" && context.body instanceof FormData) ||
+      (typeof FormData !== 'undefined' && context.body instanceof FormData) ||
       context.body instanceof URLSearchParams ||
       isBlob(context.body)
         ? context.body
@@ -132,20 +132,20 @@ export class BaseAPI {
 }
 
 export class RequiredError extends Error {
-  name: "RequiredError" = "RequiredError";
+  name: 'RequiredError' = 'RequiredError';
   constructor(public field: string, msg?: string) {
     super(msg);
   }
 }
 
 export const COLLECTION_FORMATS = {
-  csv: ",",
-  ssv: " ",
-  tsv: "\t",
-  pipes: "|",
+  csv: ',',
+  ssv: ' ',
+  tsv: '\t',
+  pipes: '|',
 };
 
-export type FetchAPI = WindowOrWorkerGlobalScope["fetch"];
+export type FetchAPI = WindowOrWorkerGlobalScope['fetch'];
 
 export interface ConfigurationParameters {
   basePath?: string; // override base path
@@ -192,7 +192,7 @@ export class Configuration {
   get apiKey(): ((name: string) => string) | undefined {
     const apiKey = this.configuration.apiKey;
     if (apiKey) {
-      return typeof apiKey === "function" ? apiKey : () => apiKey;
+      return typeof apiKey === 'function' ? apiKey : () => apiKey;
     }
     return undefined;
   }
@@ -200,7 +200,7 @@ export class Configuration {
   get accessToken(): ((name: string, scopes?: string[]) => string) | undefined {
     const accessToken = this.configuration.accessToken;
     if (accessToken) {
-      return typeof accessToken === "function"
+      return typeof accessToken === 'function'
         ? accessToken
         : () => accessToken;
     }
@@ -218,13 +218,13 @@ export class Configuration {
 
 export type Json = any;
 export type HTTPMethod =
-  | "GET"
-  | "POST"
-  | "PUT"
-  | "PATCH"
-  | "DELETE"
-  | "OPTIONS"
-  | "HEAD";
+  | 'GET'
+  | 'POST'
+  | 'PUT'
+  | 'PATCH'
+  | 'DELETE'
+  | 'OPTIONS'
+  | 'HEAD';
 export type HTTPHeaders = { [key: string]: string };
 export type HTTPQuery = {
   [key: string]:
@@ -237,10 +237,10 @@ export type HTTPQuery = {
 };
 export type HTTPBody = Json | FormData | URLSearchParams;
 export type ModelPropertyNaming =
-  | "camelCase"
-  | "snake_case"
-  | "PascalCase"
-  | "original";
+  | 'camelCase'
+  | 'snake_case'
+  | 'PascalCase'
+  | 'original';
 
 export interface FetchParams {
   url: string;
@@ -260,7 +260,7 @@ export function exists(json: any, key: string) {
   return value !== null && value !== undefined;
 }
 
-export function querystring(params: HTTPQuery, prefix: string = ""): string {
+export function querystring(params: HTTPQuery, prefix: string = ''): string {
   return Object.keys(params)
     .map((key) => {
       const fullKey = prefix + (prefix.length ? `[${key}]` : key);
@@ -279,7 +279,7 @@ export function querystring(params: HTTPQuery, prefix: string = ""): string {
       )}`;
     })
     .filter((part) => part.length > 0)
-    .join("&");
+    .join('&');
 }
 
 export function mapValues(data: any, fn: (item: any) => any) {
@@ -291,7 +291,7 @@ export function mapValues(data: any, fn: (item: any) => any) {
 
 export function canConsumeForm(consumes: Consume[]): boolean {
   for (const consume of consumes) {
-    if ("multipart/form-data" === consume.contentType) {
+    if ('multipart/form-data' === consume.contentType) {
       return true;
     }
   }

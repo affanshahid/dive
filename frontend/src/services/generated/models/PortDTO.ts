@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from "../runtime";
+import { exists, mapValues } from '../runtime';
 /**
  *
  * @export
@@ -57,10 +57,10 @@ export function PortDTOFromJSONTyped(
     return json;
   }
   return {
-    connections: json["connections"],
-    id: json["id"],
-    label: json["label"],
-    node: json["node"],
+    connections: json['connections'],
+    id: json['id'],
+    label: json['label'],
+    node: json['node'],
   };
 }
 

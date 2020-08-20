@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from "../runtime";
+import { exists, mapValues } from '../runtime';
 /**
  *
  * @export
@@ -47,8 +47,8 @@ export function WorkflowDTOSummaryViewFromJSONTyped(
     return json;
   }
   return {
-    id: json["id"],
-    name: json["name"],
+    id: json['id'],
+    name: json['name'],
   };
 }
 

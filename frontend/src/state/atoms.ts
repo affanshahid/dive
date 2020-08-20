@@ -1,5 +1,5 @@
-import { IChart } from "@mrblenny/react-flow-chart";
-import { atom } from "recoil";
+import { IChart } from '@mrblenny/react-flow-chart';
+import { atom } from 'recoil';
 
 const initialDesignerChartState: IChart = {
   offset: {
@@ -14,11 +14,16 @@ const initialDesignerChartState: IChart = {
 };
 
 export const designerChart = atom({
-  key: "designerChart",
+  key: 'designerChart',
   default: initialDesignerChartState,
 });
 
+export const designerChartLabel = atom({
+  key: 'designerChartLabel',
+  default: '',
+});
+
 export const designerSelectedNodeId = atom<String | null>({
-  key: "designerSelectedNodeId",
+  key: 'designerSelectedNodeId',
   default: null,
 });

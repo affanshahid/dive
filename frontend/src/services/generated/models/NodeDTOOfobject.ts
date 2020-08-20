@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from "../runtime";
+import { exists, mapValues } from '../runtime';
 /**
  *
  * @export
@@ -69,12 +69,12 @@ export function NodeDTOOfobjectFromJSONTyped(
     return json;
   }
   return {
-    _class: json["@class"],
-    config: !exists(json, "config") ? undefined : json["config"],
-    id: json["id"],
-    inputPorts: json["inputPorts"],
-    label: json["label"],
-    outputPorts: json["outputPorts"],
+    _class: json['@class'],
+    config: !exists(json, 'config') ? undefined : json['config'],
+    id: json['id'],
+    inputPorts: json['inputPorts'],
+    label: json['label'],
+    outputPorts: json['outputPorts'],
   };
 }
 
@@ -86,7 +86,7 @@ export function NodeDTOOfobjectToJSON(value?: NodeDTOOfobject | null): any {
     return null;
   }
   return {
-    "@class": value._class,
+    '@class': value._class,
     config: value.config,
     id: value.id,
     inputPorts: value.inputPorts,

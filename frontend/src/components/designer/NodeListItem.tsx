@@ -1,19 +1,15 @@
-import { ListIcon, ListItem } from "@chakra-ui/core";
-import { IPort, REACT_FLOW_CHART } from "@mrblenny/react-flow-chart";
-import React, { DragEvent, useCallback, useMemo } from "react";
-import { IconType } from "react-icons";
-import { AiOutlineFilter, AiOutlineRead } from "react-icons/ai";
-import { GoGraph } from "react-icons/go";
-import { DesignerNodeDTO } from "../../services/generated";
+import { ListIcon, ListItem } from '@chakra-ui/core';
+import { IPort, REACT_FLOW_CHART } from '@mrblenny/react-flow-chart';
+import React, { DragEvent, useCallback, useMemo } from 'react';
+import { IconType } from 'react-icons';
+import { AiOutlineFilter, AiOutlineRead } from 'react-icons/ai';
+import { GoGraph } from 'react-icons/go';
+import { DesignerNodeDTO } from '../../services/generated';
+import { ChartNodeProperties } from '../../utils/helpers';
 
 export type Payload = {
   ports: Record<string, Partial<IPort>>;
-  properties: {
-    label: string;
-    configSchema: any;
-    className: string;
-    configClassName: string;
-  };
+  properties: ChartNodeProperties;
 };
 
 const iconMapping: Record<string, IconType> = {
@@ -32,23 +28,23 @@ function NodeListItem({ node }: NodeListItemProps) {
       ports: {},
       properties: {
         label: nodeName(node),
-        configSchema: node.configSchema,
         className: node.className,
         configClassName: node.configClassName,
+        config: {},
       },
     };
 
     for (const label of node.inputPorts) {
       result.ports[label] = {
         id: label,
-        type: "left",
+        type: 'left',
       };
     }
 
     for (const label of node.outputPorts) {
       result.ports[label] = {
         id: label,
-        type: "right",
+        type: 'right',
       };
     }
 
@@ -79,7 +75,7 @@ function NodeListItem({ node }: NodeListItemProps) {
 
 export default NodeListItem;
 
-function nodeName(node: DesignerNodeDTO) {
-  const segments = node.className.split(".");
+export function nodeName(node: DesignerNodeDTO) {
+  const segments = node.className.split('.');
   return segments[segments.length - 1];
 }

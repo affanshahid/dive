@@ -19,6 +19,7 @@
     "@types/react-dom": "^16.9.8",
     "@types/react-router-dom": "^5.1.5",
     "@types/recoil": "0.0.1",
+    "@types/uuid": "^8.3.0",
     "auto-bind": "^4.0.0",
     "emotion-theming": "^10.0.27",
     "husky": "^4.2.5",
@@ -35,7 +36,8 @@
     "react-scripts": "3.4.1",
     "recoil": "0.0.10",
     "styled-components": "^5.1.1",
-    "typescript": "^3.7.5"
+    "typescript": "^3.7.5",
+    "uuid": "^8.3.0"
   },
   "devDependencies": {
     "@openapitools/openapi-generator-cli": "^1.0.15-4.3.1"
@@ -48,6 +50,9 @@
     "gen": "openapi-generator generate -i http://localhost:8080/v2/api-docs -g typescript-fetch -o ./src/services/generated/ --additional-properties=typescriptThreePlus=true"
   },
   "proxy": "http://localhost:8080",
+  "prettier": {
+    "singleQuote": true
+  },
   "eslintConfig": {
     "extends": "react-app"
   },

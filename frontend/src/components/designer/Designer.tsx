@@ -1,27 +1,27 @@
-import { Box, Flex, SimpleGrid } from "@chakra-ui/core";
-import React from "react";
-import Layout from "../Layout";
-import ConfigDrawer from "./ConfigDrawer";
-import NodeList from "./NodeList";
-import WorkflowButtons from "./WorkflowButtons";
-import WorkflowCanvas from "./WorkflowCanvas";
+import { Box, SimpleGrid } from '@chakra-ui/core';
+import React, { Fragment } from 'react';
+import ConfigDrawer from './ConfigDrawer';
+import Controls, { ControlsProps } from './Controls';
+import WorkflowCanvas from './WorkflowCanvas';
 
-function Designer() {
+export interface DesignerProps {
+  doSave: ControlsProps['doSave'];
+  afterSave: ControlsProps['afterSave'];
+}
+
+function Designer({ doSave, afterSave }: DesignerProps) {
   return (
-    <Layout>
+    <Fragment>
       <ConfigDrawer />
       <SimpleGrid columns={12} spacing={0} h="calc(100vh - 86px)">
         <Box gridColumn="1/4" shadow="lg">
-          <Flex direction="column" h="full" justify="space-between">
-            <NodeList />
-            <WorkflowButtons />
-          </Flex>
+          <Controls doSave={doSave} afterSave={afterSave} />
         </Box>
         <Box gridColumn="4/13" flexGrow={4} overflow="hidden">
           <WorkflowCanvas />
         </Box>
       </SimpleGrid>
-    </Layout>
+    </Fragment>
   );
 }
 

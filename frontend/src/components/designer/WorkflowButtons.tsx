@@ -1,26 +1,72 @@
-import { Box, Button, useDisclosure } from "@chakra-ui/core";
-import React, { Fragment } from "react";
-import { useResetRecoilState } from "recoil";
-import { designerChart } from "../../state";
-import SaveModal from "./SaveModal";
+import { Box, Button, useToast } from '@chakra-ui/core';
+import { noop } from '@mrblenny/react-flow-chart';
+import React, { useCallback } from 'react';
+import { useAsync } from 'react-async';
+import { useResetRecoilState } from 'recoil';
+import { WorkflowDTO } from '../../services/generated';
+import { designerChart } from '../../state';
+import { extractResponseError } from '../../utils/errors';
 
-function WorkflowButtons() {
+export interface WorkflowButtonsProps {
+  doSave: () => Promise<WorkflowDTO>;
+  afterSave?: (dto: WorkflowDTO) => void;
+}
+
+function WorkflowButtons({ doSave, afterSave = noop }: WorkflowButtonsProps) {
+  const toast = useToast();
   const resetChart = useResetRecoilState(designerChart);
-  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const onSaveSuccess = useCallback(
+    (dto: WorkflowDTO) => {
+      toast({
+        status: 'success',
+        title: 'Saved',
+      });
+
+      afterSave(dto);
+    },
+    [afterSave, toast]
+  );
+
+  const onSaveFailed = useCallback(
+    async (err: any) =>
+      toast({
+        status: 'error',
+        title: 'Error',
+        description:
+          err instanceof Response
+            ? await extractResponseError(err)
+            : err.message,
+        isClosable: true,
+      }),
+    [toast]
+  );
+
+  const { run, status } = useAsync({
+    deferFn: doSave,
+    onReject: onSaveFailed,
+    onResolve: onSaveSuccess,
+  });
 
   return (
-    <Fragment>
-      <Box px={3} py={3}>
-        <Button w="full" mb={2} onClick={resetChart}>
-          Clear
-        </Button>
-        <Button onClick={onOpen} w="full" variantColor="teal">
-          Save
-        </Button>
-      </Box>
-
-      <SaveModal isOpen={isOpen} onClose={onClose} />
-    </Fragment>
+    <Box px={3} py={3}>
+      <Button
+        isLoading={status === 'pending'}
+        w="full"
+        mb={2}
+        onClick={resetChart}
+      >
+        Clear
+      </Button>
+      <Button
+        onClick={run}
+        isLoading={status === 'pending'}
+        w="full"
+        variantColor="teal"
+      >
+        Save
+      </Button>
+    </Box>
   );
 }
 

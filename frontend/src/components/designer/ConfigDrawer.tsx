@@ -8,27 +8,28 @@ import {
   FormControl,
   FormLabel,
   Input,
-} from "@chakra-ui/core";
-import Form from "@rjsf/core";
+} from '@chakra-ui/core';
+import Form from '@rjsf/core';
 import React, {
   ChangeEvent,
   Fragment,
   ReactNode,
   useCallback,
   useRef,
-} from "react";
+} from 'react';
 import {
   useRecoilState,
   useRecoilValue,
   useResetRecoilState,
   useSetRecoilState,
-} from "recoil";
+} from 'recoil';
 import {
   designerSelectedNode,
   designerSelectedNodeConfig,
+  designerSelectedNodeConfigSchema,
   designerSelectedNodeId,
   designerSelectedNodeLabel,
-} from "../../state";
+} from '../../state';
 
 function ConfigDrawer() {
   const initialRef = useRef(null);
@@ -38,6 +39,8 @@ function ConfigDrawer() {
   const handleChange = useCallback((event: any) => setConfig(event.formData), [
     setConfig,
   ]);
+
+  const configSchema = useRecoilValue(designerSelectedNodeConfigSchema);
 
   const [label, setLabel] = useRecoilState(designerSelectedNodeLabel);
   const handleLabelChange = useCallback(
@@ -63,10 +66,10 @@ function ConfigDrawer() {
         </FormControl>
         <Form
           formData={selectedNode.properties.config}
-          schema={selectedNode.properties.configSchema}
+          schema={configSchema!}
           onChange={handleChange}
         >
-          <button type="submit" style={{ display: "none" }} />
+          <button type="submit" style={{ display: 'none' }} />
         </Form>
       </Fragment>
     );

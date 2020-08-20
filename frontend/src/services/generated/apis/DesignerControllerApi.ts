@@ -12,12 +12,12 @@
  * Do not edit the class manually.
  */
 
-import * as runtime from "../runtime";
+import * as runtime from '../runtime';
 import {
   DesignerNodeDTO,
   DesignerNodeDTOFromJSON,
   DesignerNodeDTOToJSON,
-} from "../models";
+} from '../models';
 
 /**
  *
@@ -35,7 +35,7 @@ export class DesignerControllerApi extends runtime.BaseAPI {
 
     const response = await this.request({
       path: `/api/designer/nodes`,
-      method: "GET",
+      method: 'GET',
       headers: headerParameters,
       query: queryParameters,
     });

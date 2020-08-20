@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from "../runtime";
+import { exists, mapValues } from '../runtime';
 import {
   WorkflowTreeDTO,
   WorkflowTreeDTOFromJSON,
   WorkflowTreeDTOFromJSONTyped,
   WorkflowTreeDTOToJSON,
-} from "./";
+} from './';
 
 /**
  *
@@ -52,10 +52,10 @@ export function UpdateWorkflowDTOFromJSONTyped(
     return json;
   }
   return {
-    name: !exists(json, "name") ? undefined : json["name"],
-    tree: !exists(json, "tree")
+    name: !exists(json, 'name') ? undefined : json['name'],
+    tree: !exists(json, 'tree')
       ? undefined
-      : WorkflowTreeDTOFromJSON(json["tree"]),
+      : WorkflowTreeDTOFromJSON(json['tree']),
   };
 }
 

@@ -1,9 +1,37 @@
-import clone from "lodash.clonedeep";
-import { selector } from "recoil";
-import { designerChart, designerSelectedNodeId } from "./atoms";
+import clone from 'lodash.clonedeep';
+import { selector, selectorFamily } from 'recoil';
+import { designerService } from '../services';
+import { extractResponseError } from '../utils/errors';
+import { designerChart, designerSelectedNodeId } from './atoms';
+
+export const designerNodes = selector({
+  key: 'designerNodes',
+  async get({ get }) {
+    try {
+      return await designerService.getNodesUsingGET();
+    } catch (err) {
+      throw new Error(await extractResponseError(err));
+    }
+  },
+});
+
+export const designerNodeConfigSchema = selectorFamily({
+  key: 'designerNodeConfigSchema',
+  get: (configClass: string) => ({ get }) => {
+    const nodeList = get(designerNodes);
+
+    const node = nodeList.find((node) => node.configClassName === configClass);
+    if (node == null)
+      throw new Error(
+        'node config schema not found with class: ' + configClass
+      );
+
+    return node.configSchema;
+  },
+});
 
 export const designerSelectedNode = selector({
-  key: "designerSelectedNode",
+  key: 'designerSelectedNode',
   get({ get }) {
     const id = get(designerSelectedNodeId);
     if (id == null) return null;
@@ -14,7 +42,7 @@ export const designerSelectedNode = selector({
 });
 
 export const designerSelectedNodeLabel = selector<string | null>({
-  key: "designerSelectedNodeProperties",
+  key: 'designerSelectedNodeProperties',
   get({ get }) {
     return get(designerSelectedNode)?.properties.label;
   },
@@ -30,8 +58,18 @@ export const designerSelectedNodeLabel = selector<string | null>({
   },
 });
 
+export const designerSelectedNodeConfigSchema = selector({
+  key: 'designerSelectedNodeConfigSchema',
+  get({ get }) {
+    const node = get(designerSelectedNode);
+    if (node == null) return null;
+
+    return get(designerNodeConfigSchema(node.properties.configClassName));
+  },
+});
+
 export const designerSelectedNodeConfig = selector({
-  key: "designerSelectedNodeConfig",
+  key: 'designerSelectedNodeConfig',
   get({ get }) {
     return get(designerSelectedNode)?.properties.config;
   },

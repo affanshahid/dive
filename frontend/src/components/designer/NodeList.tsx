@@ -1,25 +1,24 @@
-import { List, ListItem, Skeleton } from "@chakra-ui/core";
-import React, { ReactNode } from "react";
-import { useAsync } from "react-async";
-import { designerService } from "../../services/index";
-import NodeListItem from "./NodeListItem";
+import { List, ListItem, Skeleton } from '@chakra-ui/core';
+import React, { ReactNode } from 'react';
+import { useRecoilValueLoadable } from 'recoil';
+import { designerNodes } from '../../state';
+import NodeListItem from './NodeListItem';
 
 function NodeList() {
-  const { data: nodes, error, status } = useAsync(
-    designerService.getNodesUsingGET
-  );
+  const nodesLoadable = useRecoilValueLoadable(designerNodes);
 
   let children: ReactNode;
 
-  if (status === "rejected") return <p>Error: {error!.message}</p>;
-  else if (status === "pending")
+  if (nodesLoadable.state === 'hasError')
+    return <p>Error: {nodesLoadable.contents.message}</p>;
+  else if (nodesLoadable.state === 'loading')
     children = new Array(15).fill(0).map((_, i) => (
       <ListItem w="full" key={i}>
         <Skeleton mx={4} height="25px" />
       </ListItem>
     ));
   else
-    children = nodes!.map((node) => (
+    children = nodesLoadable.contents.map((node) => (
       <NodeListItem key={node.className} node={node} />
     ));
 

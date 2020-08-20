@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import * as runtime from "../runtime";
+import * as runtime from '../runtime';
 import {
   CreateWorkflowDTO,
   CreateWorkflowDTOFromJSON,
@@ -26,7 +26,7 @@ import {
   WorkflowDTOSummaryView,
   WorkflowDTOSummaryViewFromJSON,
   WorkflowDTOSummaryViewToJSON,
-} from "../models";
+} from '../models';
 
 export interface CreateUsingPOSTRequest {
   dto: CreateWorkflowDTO;
@@ -57,8 +57,8 @@ export class WorkflowControllerApi extends runtime.BaseAPI {
   ): Promise<runtime.ApiResponse<WorkflowDTO>> {
     if (requestParameters.dto === null || requestParameters.dto === undefined) {
       throw new runtime.RequiredError(
-        "dto",
-        "Required parameter requestParameters.dto was null or undefined when calling createUsingPOST."
+        'dto',
+        'Required parameter requestParameters.dto was null or undefined when calling createUsingPOST.'
       );
     }
 
@@ -66,11 +66,11 @@ export class WorkflowControllerApi extends runtime.BaseAPI {
 
     const headerParameters: runtime.HTTPHeaders = {};
 
-    headerParameters["Content-Type"] = "application/json";
+    headerParameters['Content-Type'] = 'application/json';
 
     const response = await this.request({
       path: `/api/workflows`,
-      method: "POST",
+      method: 'POST',
       headers: headerParameters,
       query: queryParameters,
       body: CreateWorkflowDTOToJSON(requestParameters.dto),
@@ -99,8 +99,8 @@ export class WorkflowControllerApi extends runtime.BaseAPI {
   ): Promise<runtime.ApiResponse<WorkflowDTO>> {
     if (requestParameters.id === null || requestParameters.id === undefined) {
       throw new runtime.RequiredError(
-        "id",
-        "Required parameter requestParameters.id was null or undefined when calling deleteUsingDELETE."
+        'id',
+        'Required parameter requestParameters.id was null or undefined when calling deleteUsingDELETE.'
       );
     }
 
@@ -110,10 +110,10 @@ export class WorkflowControllerApi extends runtime.BaseAPI {
 
     const response = await this.request({
       path: `/api/workflows/{id}`.replace(
-        `{${"id"}}`,
+        `{${'id'}}`,
         encodeURIComponent(String(requestParameters.id))
       ),
-      method: "DELETE",
+      method: 'DELETE',
       headers: headerParameters,
       query: queryParameters,
     });
@@ -145,7 +145,7 @@ export class WorkflowControllerApi extends runtime.BaseAPI {
 
     const response = await this.request({
       path: `/api/workflows`,
-      method: "GET",
+      method: 'GET',
       headers: headerParameters,
       query: queryParameters,
     });
@@ -171,8 +171,8 @@ export class WorkflowControllerApi extends runtime.BaseAPI {
   ): Promise<runtime.ApiResponse<WorkflowDTO>> {
     if (requestParameters.id === null || requestParameters.id === undefined) {
       throw new runtime.RequiredError(
-        "id",
-        "Required parameter requestParameters.id was null or undefined when calling findByIdUsingGET."
+        'id',
+        'Required parameter requestParameters.id was null or undefined when calling findByIdUsingGET.'
       );
     }
 
@@ -182,10 +182,10 @@ export class WorkflowControllerApi extends runtime.BaseAPI {
 
     const response = await this.request({
       path: `/api/workflows/{id}`.replace(
-        `{${"id"}}`,
+        `{${'id'}}`,
         encodeURIComponent(String(requestParameters.id))
       ),
-      method: "GET",
+      method: 'GET',
       headers: headerParameters,
       query: queryParameters,
     });
@@ -213,15 +213,15 @@ export class WorkflowControllerApi extends runtime.BaseAPI {
   ): Promise<runtime.ApiResponse<WorkflowDTO>> {
     if (requestParameters.id === null || requestParameters.id === undefined) {
       throw new runtime.RequiredError(
-        "id",
-        "Required parameter requestParameters.id was null or undefined when calling updateUsingPATCH."
+        'id',
+        'Required parameter requestParameters.id was null or undefined when calling updateUsingPATCH.'
       );
     }
 
     if (requestParameters.dto === null || requestParameters.dto === undefined) {
       throw new runtime.RequiredError(
-        "dto",
-        "Required parameter requestParameters.dto was null or undefined when calling updateUsingPATCH."
+        'dto',
+        'Required parameter requestParameters.dto was null or undefined when calling updateUsingPATCH.'
       );
     }
 
@@ -229,14 +229,14 @@ export class WorkflowControllerApi extends runtime.BaseAPI {
 
     const headerParameters: runtime.HTTPHeaders = {};
 
-    headerParameters["Content-Type"] = "application/json";
+    headerParameters['Content-Type'] = 'application/json';
 
     const response = await this.request({
       path: `/api/workflows/{id}`.replace(
-        `{${"id"}}`,
+        `{${'id'}}`,
         encodeURIComponent(String(requestParameters.id))
       ),
-      method: "PATCH",
+      method: 'PATCH',
       headers: headerParameters,
       query: queryParameters,
       body: UpdateWorkflowDTOToJSON(requestParameters.dto),

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from "../runtime";
+import { exists, mapValues } from '../runtime';
 /**
  *
  * @export
@@ -69,12 +69,12 @@ export function DesignerNodeDTOFromJSONTyped(
     return json;
   }
   return {
-    className: json["className"],
-    configClassName: json["configClassName"],
-    configSchema: json["configSchema"],
-    inputPorts: json["inputPorts"],
-    outputPorts: json["outputPorts"],
-    type: json["type"],
+    className: json['className'],
+    configClassName: json['configClassName'],
+    configSchema: json['configSchema'],
+    inputPorts: json['inputPorts'],
+    outputPorts: json['outputPorts'],
+    type: json['type'],
   };
 }
 
