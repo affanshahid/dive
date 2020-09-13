@@ -11,14 +11,14 @@ import {
   ModalHeader,
   ModalOverlay,
   useToast,
-} from "@chakra-ui/core";
-import React, { useCallback, useRef, useState } from "react";
-import useInput from "react-hanger/useInput";
-import { useRecoilState } from "recoil";
-import { workflowsService } from "../../services";
-import { designerChart } from "../../state";
-import { chartToDTO } from "../../utils/conversion";
-import { extractResponseError } from "../../utils/errors";
+} from '@chakra-ui/core';
+import React, { useCallback, useRef, useState } from 'react';
+import useInput from 'react-hanger/useInput';
+import { useRecoilState } from 'recoil';
+import { workflowsService } from '../../services';
+import { chartState } from '../../state/designer';
+import { chartToDTO } from '../../utils/conversion';
+import { extractResponseError } from '../../utils/errors';
 
 export interface SaveModalProps {
   isOpen: boolean;
@@ -28,8 +28,8 @@ export interface SaveModalProps {
 function SaveModal({ isOpen, onClose }: SaveModalProps) {
   const [saving, setSaving] = useState(false);
   const toast = useToast();
-  const label = useInput("");
-  const [chart] = useRecoilState(designerChart);
+  const label = useInput('');
+  const [chart] = useRecoilState(chartState);
   const initialRef = useRef(null);
   const handleSave = useCallback(async () => {
     try {
@@ -42,8 +42,8 @@ function SaveModal({ isOpen, onClose }: SaveModalProps) {
       else msg = err.message;
 
       toast({
-        status: "error",
-        title: "Error",
+        status: 'error',
+        title: 'Error',
         description: msg,
         isClosable: true,
       });

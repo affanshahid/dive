@@ -4,7 +4,7 @@ import React, { useCallback } from 'react';
 import { useAsync } from 'react-async';
 import { useResetRecoilState } from 'recoil';
 import { WorkflowDTO } from '../../services/generated';
-import { designerChart } from '../../state';
+import { chartState } from '../../state/designer';
 import { extractResponseError } from '../../utils/errors';
 
 export interface WorkflowButtonsProps {
@@ -14,7 +14,7 @@ export interface WorkflowButtonsProps {
 
 function WorkflowButtons({ doSave, afterSave = noop }: WorkflowButtonsProps) {
   const toast = useToast();
-  const resetChart = useResetRecoilState(designerChart);
+  const resetChart = useResetRecoilState(chartState);
 
   const onSaveSuccess = useCallback(
     (dto: WorkflowDTO) => {

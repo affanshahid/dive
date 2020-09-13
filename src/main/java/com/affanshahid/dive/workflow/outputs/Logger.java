@@ -6,11 +6,12 @@ import java.util.List;
 
 import com.affanshahid.dive.workflow.Node;
 import com.affanshahid.dive.workflow.Port;
+import com.affanshahid.dive.workflow.View;
 
 public class Logger extends Node<Logger.Config> {
     public static final int PORT_IN_DATA = 0;
 
-    public static final int PORT_OUT_LOGS = 0;
+    public static final int OUTPUT_LOGS = 0;
 
     public Logger(String id, String label) {
         super(id, label, new Logger.Config());
@@ -25,9 +26,14 @@ public class Logger extends Node<Logger.Config> {
 
     @Override
     protected List<Port> createOutputPorts() {
-        List<Port> ports = new ArrayList<>(Collections.nCopies(1, null));
-        ports.set(PORT_OUT_LOGS, new Port(createPortId("logs"), "Logs", this));
-        return ports;
+        return new ArrayList<>();
+    }
+
+    @Override
+    protected List<View<?>> createViews() {
+        List<View<?>> outputs = new ArrayList<>(Collections.nCopies(1, null));
+        outputs.set(OUTPUT_LOGS, new View<>(createOutputId("logs"), "Logs", LogsData.class));
+        return outputs;
     }
 
     public static class Config {
@@ -39,6 +45,18 @@ public class Logger extends Node<Logger.Config> {
 
         public void setPrefix(String prefix) {
             this.prefix = prefix;
+        }
+    }
+
+    public static class LogsData {
+        private List<String> lines;
+
+        public List<String> getLines() {
+            return lines;
+        }
+
+        public void setLines(List<String> lines) {
+            this.lines = lines;
         }
     }
 }

@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.affanshahid.dive.workflow.Node;
 import com.affanshahid.dive.workflow.Port;
+import com.affanshahid.dive.workflow.View;
 
 public class JSONReader extends Node<JSONReader.Config> {
     public static final int PORT_OUT_DATA = 0;
@@ -25,6 +26,11 @@ public class JSONReader extends Node<JSONReader.Config> {
         List<Port> outputs = new ArrayList<>(nCopies(1, null));
         outputs.set(PORT_OUT_DATA, new Port(createPortId("data"), "Data", this));
         return outputs;
+    }
+
+    @Override
+    protected List<View<?>> createViews() {
+        return new ArrayList<>();
     }
 
     public static class Config {

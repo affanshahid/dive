@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.affanshahid.dive.workflow.Node;
 import com.affanshahid.dive.workflow.Port;
+import com.affanshahid.dive.workflow.View;
 import com.kjetland.jackson.jsonSchema.annotations.JsonSchemaInject;
 
 public class Filter extends Node<Filter.Config> {
@@ -33,6 +34,11 @@ public class Filter extends Node<Filter.Config> {
         ports.set(PORT_OUT_FILTERED, new Port(createPortId("filtered"), "Filtered", this));
 
         return ports;
+    }
+
+    @Override
+    protected List<View<?>> createViews() {
+        return new ArrayList<>();
     }
 
     public static class Config {

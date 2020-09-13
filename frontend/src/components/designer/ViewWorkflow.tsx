@@ -10,7 +10,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { workflowsService } from '../../services';
 import { WorkflowDTO } from '../../services/generated';
-import { designerChart, designerChartLabel } from '../../state';
+import { chartLabelState, chartState } from '../../state/designer';
 import { chartToDTO, dtoToChart } from '../../utils/conversion';
 import { extractResponseError } from '../../utils/errors';
 import { Status } from '../../utils/helpers';
@@ -18,11 +18,11 @@ import Layout from '../Layout';
 import Designer from './Designer';
 
 function ViewWorkflow() {
-  const { workflowId } = useParams();
+  const { workflowId } = useParams<any>();
   const [status, setStatus] = useState<Status>('pending');
   const [errMsg, setErrMsg] = useState<string | null>();
-  const [chart, setChart] = useRecoilState(designerChart);
-  const [label, setLabel] = useRecoilState(designerChartLabel);
+  const [chart, setChart] = useRecoilState(chartState);
+  const [label, setLabel] = useRecoilState(chartLabelState);
 
   useEffect(() => {
     async function effect() {

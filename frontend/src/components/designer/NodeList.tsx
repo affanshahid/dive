@@ -1,11 +1,11 @@
 import { List, ListItem, Skeleton } from '@chakra-ui/core';
 import React, { ReactNode } from 'react';
 import { useRecoilValueLoadable } from 'recoil';
-import { designerNodes } from '../../state';
+import { nodesState } from '../../state/designer';
 import NodeListItem from './NodeListItem';
 
 function NodeList() {
-  const nodesLoadable = useRecoilValueLoadable(designerNodes);
+  const nodesLoadable = useRecoilValueLoadable(nodesState);
 
   let children: ReactNode;
 

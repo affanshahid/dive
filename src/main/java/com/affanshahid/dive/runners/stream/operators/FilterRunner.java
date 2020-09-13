@@ -3,6 +3,7 @@ package com.affanshahid.dive.runners.stream.operators;
 import java.util.List;
 import java.util.stream.Stream;
 
+import com.affanshahid.dive.runners.ViewData;
 import com.affanshahid.dive.runners.stream.DataRow;
 import com.affanshahid.dive.runners.stream.RunnerNode;
 import com.affanshahid.dive.workflow.operators.Filter;
@@ -38,5 +39,10 @@ public class FilterRunner extends RunnerNode<Filter> {
             return true;
 
         return !val.equals(fVal);
+    }
+
+    @Override
+    protected ViewData<?> createViewData(int viewIndex, List<Stream<DataRow>> inputs) throws Exception {
+        throw new UnsupportedOperationException("No views in Filter");
     }
 }

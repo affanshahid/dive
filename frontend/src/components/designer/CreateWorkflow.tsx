@@ -4,21 +4,21 @@ import { useRecoilValue, useResetRecoilState } from 'recoil';
 import { workflowsService } from '../../services';
 import { WorkflowDTO } from '../../services/generated';
 import {
-  designerChart,
-  designerChartLabel,
-  designerSelectedNodeId,
-} from '../../state';
+  chartLabelState,
+  chartState,
+  selectedNodeIdState,
+} from '../../state/designer';
 import { chartToDTO } from '../../utils/conversion';
 import Layout from '../Layout';
 import Designer from './Designer';
 
 function CreateWorkflow() {
-  const resetChart = useResetRecoilState(designerChart);
-  const resetLabel = useResetRecoilState(designerChartLabel);
-  const resetSelectedNode = useResetRecoilState(designerSelectedNodeId);
+  const resetChart = useResetRecoilState(chartState);
+  const resetLabel = useResetRecoilState(chartLabelState);
+  const resetSelectedNode = useResetRecoilState(selectedNodeIdState);
 
-  const chart = useRecoilValue(designerChart);
-  const label = useRecoilValue(designerChartLabel);
+  const chart = useRecoilValue(chartState);
+  const label = useRecoilValue(chartLabelState);
 
   useEffect(() => {
     resetChart();

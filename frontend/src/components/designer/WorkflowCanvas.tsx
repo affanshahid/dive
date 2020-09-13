@@ -1,15 +1,15 @@
-import { actions, FlowChart } from "@mrblenny/react-flow-chart";
-import mapValues from "lodash.mapvalues";
-import React, { useMemo } from "react";
-import { useRecoilState } from "recoil";
-import { designerChart } from "../../state";
-import NodeInner from "./NodeInner";
-import Port from "./Port";
+import { actions, FlowChart } from '@mrblenny/react-flow-chart';
+import mapValues from 'lodash.mapvalues';
+import React, { useMemo } from 'react';
+import { useRecoilState } from 'recoil';
+import { chartState } from '../../state/designer';
+import NodeInner from './NodeInner';
+import Port from './Port';
 
 const clone = (d: any) => JSON.parse(JSON.stringify(d));
 
 function WorkflowCanvas() {
-  const [chart, setChart] = useRecoilState(designerChart);
+  const [chart, setChart] = useRecoilState(chartState);
 
   const callbacks = useMemo(
     () =>

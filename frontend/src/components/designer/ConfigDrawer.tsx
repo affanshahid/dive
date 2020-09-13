@@ -24,25 +24,25 @@ import {
   useSetRecoilState,
 } from 'recoil';
 import {
-  designerSelectedNode,
-  designerSelectedNodeConfig,
-  designerSelectedNodeConfigSchema,
-  designerSelectedNodeId,
-  designerSelectedNodeLabel,
-} from '../../state';
+  selectedNodeConfigSchemaState,
+  selectedNodeConfigState,
+  selectedNodeIdState,
+  selectedNodeLabelState,
+  selectedNodeState,
+} from '../../state/designer';
 
 function ConfigDrawer() {
   const initialRef = useRef(null);
-  const selectedNode = useRecoilValue(designerSelectedNode);
-  const resetSelectedNode = useResetRecoilState(designerSelectedNodeId);
-  const setConfig = useSetRecoilState(designerSelectedNodeConfig);
+  const selectedNode = useRecoilValue(selectedNodeState);
+  const resetSelectedNode = useResetRecoilState(selectedNodeIdState);
+  const setConfig = useSetRecoilState(selectedNodeConfigState);
   const handleChange = useCallback((event: any) => setConfig(event.formData), [
     setConfig,
   ]);
 
-  const configSchema = useRecoilValue(designerSelectedNodeConfigSchema);
+  const configSchema = useRecoilValue(selectedNodeConfigSchemaState);
 
-  const [label, setLabel] = useRecoilState(designerSelectedNodeLabel);
+  const [label, setLabel] = useRecoilState(selectedNodeLabelState);
   const handleLabelChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => setLabel(event.target.value),
     [setLabel]

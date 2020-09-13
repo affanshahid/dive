@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.affanshahid.dive.runners.Runner;
+import com.affanshahid.dive.runners.ViewData;
 import com.affanshahid.dive.runners.stream.operators.FilterRunner;
 import com.affanshahid.dive.runners.stream.outputs.LoggerRunner;
 import com.affanshahid.dive.runners.stream.readers.JSONReaderRunner;
@@ -36,6 +37,7 @@ public class StreamRunner implements Runner {
 
     private RunnerNode<?> root;
     private List<RunnerNode<?>> outputs;
+    private List<ViewData<?>> viewDataList;
 
     @Override
     public void run() throws Exception {
@@ -43,10 +45,11 @@ public class StreamRunner implements Runner {
             throw new RuntimeException("workflow not set");
         }
 
+        viewDataList = new ArrayList<>();
+
         for (var output : outputs) {
-            for (int i = 0; i < output.getOutputPorts().size(); i++) {
-                output.getOutputStream(i).map(row -> (String) row.get("OUT")).forEach(System.out::println);
-                System.out.println("---");
+            for (int i = 0; i < output.getViewCount(); i++) {
+                viewDataList.add(output.getViewData(i));
             }
         }
     }
@@ -59,6 +62,19 @@ public class StreamRunner implements Runner {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public List<ViewData<?>> getViewData() {
+        if (root == null || outputs == null) {
+            throw new RuntimeException("workflow not set");
+        }
+
+        if (viewDataList == null) {
+            throw new RuntimeException("workflow not run");
+        }
+
+        return viewDataList;
     }
 
     private RunnerNode<?> buildRunnerNode(Node<?> node) throws Exception {
@@ -76,7 +92,7 @@ public class StreamRunner implements Runner {
             }
         }
 
-        if (node.isLeaf()) {
+        if (node.isOutput()) {
             outputs.add(runner);
         }
 

@@ -1,7 +1,7 @@
 import { Box, Flex, FormControl, FormLabel, Input } from '@chakra-ui/core';
 import React, { ChangeEvent, useCallback } from 'react';
 import { useRecoilState } from 'recoil';
-import { designerChartLabel } from '../../state';
+import { chartLabelState } from '../../state/designer';
 import NodeList from './NodeList';
 import WorkflowButtons, { WorkflowButtonsProps } from './WorkflowButtons';
 
@@ -11,7 +11,7 @@ export interface ControlsProps {
 }
 
 function Controls({ doSave, afterSave }: ControlsProps) {
-  const [label, setLabel] = useRecoilState(designerChartLabel);
+  const [label, setLabel] = useRecoilState(chartLabelState);
   const handleChangeInput = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => setLabel(event.target.value),
     [setLabel]
