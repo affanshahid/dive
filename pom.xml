@@ -13,7 +13,7 @@
   <name>Dive</name>
   <description>Data Insights and Visual Exploration</description>
   <properties>
-    <java.version>14</java.version>
+    <java.version>15</java.version>
   </properties>
   <dependencies>
     <dependency>
@@ -45,14 +45,9 @@
       <version>2.11.1</version>
     </dependency>
     <dependency>
-      <groupId>io.springfox</groupId>
-      <artifactId>springfox-boot-starter</artifactId>
-      <version>3.0.0</version>
-    </dependency>
-    <dependency>
-      <groupId>io.springfox</groupId>
-      <artifactId>springfox-swagger-ui</artifactId>
-      <version>3.0.0</version>
+      <groupId>org.springdoc</groupId>
+      <artifactId>springdoc-openapi-ui</artifactId>
+      <version>1.5.0</version>
     </dependency>
     <dependency>
       <groupId>com.vladmihalcea</groupId>
@@ -72,6 +67,11 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-validation</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>30.0-jre</version>
     </dependency>
 
     <dependency>

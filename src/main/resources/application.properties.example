@@ -2,3 +2,6 @@ spring.jpa.hibernate.ddl-auto=update
 spring.datasource.url=jdbc:postgresql://${PG_HOST:localhost}:5432/example
 spring.datasource.username=username
 spring.datasource.password=password
+springdoc.packagesToScan=com.affanshahid.dive
+springdoc.pathsToMatch=*
+springdoc.swagger-ui.path=/api/swagger-ui
