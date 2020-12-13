@@ -20,6 +20,9 @@ public class DesignerNodeDTO {
     @NotNull
     private List<String> outputPorts;
 
+    @NotNull
+    private List<String> views;
+
     @NotBlank
     private String configClassName;
 
@@ -74,4 +77,11 @@ public class DesignerNodeDTO {
         this.type = type;
     }
 
+    public List<String> getViews() {
+        return views;
+    }
+
+    public void setViews(List<String> views) {
+        this.views = views;
+    }
 }

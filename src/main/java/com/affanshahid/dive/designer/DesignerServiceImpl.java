@@ -9,6 +9,7 @@ import java.util.List;
 import com.affanshahid.dive.designer.dto.DesignerNodeDTO;
 import com.affanshahid.dive.workflow.Node;
 import com.affanshahid.dive.workflow.Port;
+import com.affanshahid.dive.workflow.View;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kjetland.jackson.jsonSchema.JsonSchemaConfig;
 import com.kjetland.jackson.jsonSchema.JsonSchemaDraft;
@@ -61,6 +62,7 @@ public class DesignerServiceImpl implements DesignerService {
             dto.setConfigSchema(jg.generateJsonSchema(cfgClazz));
             dto.setInputPorts(node.getInputPorts().stream().map(Port::getLabel).collect(toList()));
             dto.setOutputPorts(node.getOutputPorts().stream().map(Port::getLabel).collect(toList()));
+            dto.setViews(node.getViews().stream().map(View::getLabel).collect(toList()));
             dto.setType(type);
 
             return dto;
