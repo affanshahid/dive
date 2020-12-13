@@ -40,14 +40,14 @@
     "uuid": "^8.3.0"
   },
   "devDependencies": {
-    "@openapitools/openapi-generator-cli": "^1.0.15-4.3.1"
+    "@openapitools/openapi-generator-cli": "^1.0.15-5.0.0-beta"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "gen": "openapi-generator generate -i http://localhost:8080/v2/api-docs -g typescript-fetch -o ./src/services/generated/ --additional-properties=typescriptThreePlus=true"
+    "gen": "openapi-generator generate -i http://localhost:8080/v3/api-docs -g typescript-fetch -o ./src/services/generated/ --additional-properties=typescriptThreePlus=true"
   },
   "proxy": "http://localhost:8080",
   "prettier": {

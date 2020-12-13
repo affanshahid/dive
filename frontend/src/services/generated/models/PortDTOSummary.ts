@@ -13,58 +13,58 @@
  */
 
 import { exists, mapValues } from '../runtime';
-import {
-  WorkflowTreeDTO,
-  WorkflowTreeDTOFromJSON,
-  WorkflowTreeDTOFromJSONTyped,
-  WorkflowTreeDTOToJSON,
-} from './';
-
 /**
  *
  * @export
- * @interface WorkflowDTO
+ * @interface PortDTOSummary
  */
-export interface WorkflowDTO {
+export interface PortDTOSummary {
   /**
    *
    * @type {string}
-   * @memberof WorkflowDTO
+   * @memberof PortDTOSummary
    */
   id: string;
   /**
    *
    * @type {string}
-   * @memberof WorkflowDTO
+   * @memberof PortDTOSummary
    */
-  name: string;
+  label: string;
   /**
    *
-   * @type {WorkflowTreeDTO}
-   * @memberof WorkflowDTO
+   * @type {Array<string>}
+   * @memberof PortDTOSummary
    */
-  tree: WorkflowTreeDTO;
+  connections: Array<string>;
+  /**
+   *
+   * @type {string}
+   * @memberof PortDTOSummary
+   */
+  node: string;
 }
 
-export function WorkflowDTOFromJSON(json: any): WorkflowDTO {
-  return WorkflowDTOFromJSONTyped(json, false);
+export function PortDTOSummaryFromJSON(json: any): PortDTOSummary {
+  return PortDTOSummaryFromJSONTyped(json, false);
 }
 
-export function WorkflowDTOFromJSONTyped(
+export function PortDTOSummaryFromJSONTyped(
   json: any,
   ignoreDiscriminator: boolean
-): WorkflowDTO {
+): PortDTOSummary {
   if (json === undefined || json === null) {
     return json;
   }
   return {
     id: json['id'],
-    name: json['name'],
-    tree: WorkflowTreeDTOFromJSON(json['tree']),
+    label: json['label'],
+    connections: json['connections'],
+    node: json['node'],
   };
 }
 
-export function WorkflowDTOToJSON(value?: WorkflowDTO | null): any {
+export function PortDTOSummaryToJSON(value?: PortDTOSummary | null): any {
   if (value === undefined) {
     return undefined;
   }
@@ -73,7 +73,8 @@ export function WorkflowDTOToJSON(value?: WorkflowDTO | null): any {
   }
   return {
     id: value.id,
-    name: value.name,
-    tree: WorkflowTreeDTOToJSON(value.tree),
+    label: value.label,
+    connections: value.connections,
+    node: value.node,
   };
 }

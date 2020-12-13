@@ -16,55 +16,48 @@ import { exists, mapValues } from '../runtime';
 /**
  *
  * @export
- * @interface PortDTO
+ * @interface ViewObject
  */
-export interface PortDTO {
+export interface ViewObject {
   /**
    *
    * @type {string}
-   * @memberof PortDTO
+   * @memberof ViewObject
    */
-  id: string;
+  id?: string;
   /**
    *
    * @type {string}
-   * @memberof PortDTO
+   * @memberof ViewObject
    */
-  label: string;
-  /**
-   *
-   * @type {Array<string>}
-   * @memberof PortDTO
-   */
-  connections: Array<string>;
+  label?: string;
   /**
    *
    * @type {string}
-   * @memberof PortDTO
+   * @memberof ViewObject
    */
-  node: string;
+  dataClass?: string;
 }
 
-export function PortDTOFromJSON(json: any): PortDTO {
-  return PortDTOFromJSONTyped(json, false);
+export function ViewObjectFromJSON(json: any): ViewObject {
+  return ViewObjectFromJSONTyped(json, false);
 }
 
-export function PortDTOFromJSONTyped(
+export function ViewObjectFromJSONTyped(
   json: any,
   ignoreDiscriminator: boolean
-): PortDTO {
+): ViewObject {
   if (json === undefined || json === null) {
     return json;
   }
   return {
-    id: json['id'],
-    label: json['label'],
-    connections: json['connections'],
-    node: json['node'],
+    id: !exists(json, 'id') ? undefined : json['id'],
+    label: !exists(json, 'label') ? undefined : json['label'],
+    dataClass: !exists(json, 'dataClass') ? undefined : json['dataClass'],
   };
 }
 
-export function PortDTOToJSON(value?: PortDTO | null): any {
+export function ViewObjectToJSON(value?: ViewObject | null): any {
   if (value === undefined) {
     return undefined;
   }
@@ -74,7 +67,6 @@ export function PortDTOToJSON(value?: PortDTO | null): any {
   return {
     id: value.id,
     label: value.label,
-    connections: value.connections,
-    node: value.node,
+    dataClass: value.dataClass,
   };
 }

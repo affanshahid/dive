@@ -14,57 +14,59 @@
 
 import { exists, mapValues } from '../runtime';
 import {
-  WorkflowTreeDTO,
-  WorkflowTreeDTOFromJSON,
-  WorkflowTreeDTOFromJSONTyped,
-  WorkflowTreeDTOToJSON,
+  WorkflowTreeDTOSummary,
+  WorkflowTreeDTOSummaryFromJSON,
+  WorkflowTreeDTOSummaryFromJSONTyped,
+  WorkflowTreeDTOSummaryToJSON,
 } from './';
 
 /**
  *
  * @export
- * @interface WorkflowDTO
+ * @interface WorkflowDTOSummary
  */
-export interface WorkflowDTO {
+export interface WorkflowDTOSummary {
   /**
    *
    * @type {string}
-   * @memberof WorkflowDTO
+   * @memberof WorkflowDTOSummary
    */
   id: string;
   /**
    *
    * @type {string}
-   * @memberof WorkflowDTO
+   * @memberof WorkflowDTOSummary
    */
   name: string;
   /**
    *
-   * @type {WorkflowTreeDTO}
-   * @memberof WorkflowDTO
+   * @type {WorkflowTreeDTOSummary}
+   * @memberof WorkflowDTOSummary
    */
-  tree: WorkflowTreeDTO;
+  tree: WorkflowTreeDTOSummary;
 }
 
-export function WorkflowDTOFromJSON(json: any): WorkflowDTO {
-  return WorkflowDTOFromJSONTyped(json, false);
+export function WorkflowDTOSummaryFromJSON(json: any): WorkflowDTOSummary {
+  return WorkflowDTOSummaryFromJSONTyped(json, false);
 }
 
-export function WorkflowDTOFromJSONTyped(
+export function WorkflowDTOSummaryFromJSONTyped(
   json: any,
   ignoreDiscriminator: boolean
-): WorkflowDTO {
+): WorkflowDTOSummary {
   if (json === undefined || json === null) {
     return json;
   }
   return {
     id: json['id'],
     name: json['name'],
-    tree: WorkflowTreeDTOFromJSON(json['tree']),
+    tree: WorkflowTreeDTOSummaryFromJSON(json['tree']),
   };
 }
 
-export function WorkflowDTOToJSON(value?: WorkflowDTO | null): any {
+export function WorkflowDTOSummaryToJSON(
+  value?: WorkflowDTOSummary | null
+): any {
   if (value === undefined) {
     return undefined;
   }
@@ -74,6 +76,6 @@ export function WorkflowDTOToJSON(value?: WorkflowDTO | null): any {
   return {
     id: value.id,
     name: value.name,
-    tree: WorkflowTreeDTOToJSON(value.tree),
+    tree: WorkflowTreeDTOSummaryToJSON(value.tree),
   };
 }
