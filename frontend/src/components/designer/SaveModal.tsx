@@ -11,7 +11,7 @@ import {
   ModalHeader,
   ModalOverlay,
   useToast,
-} from '@chakra-ui/core';
+} from '@chakra-ui/react';
 import React, { useCallback, useRef, useState } from 'react';
 import useInput from 'react-hanger/useInput';
 import { useRecoilState } from 'recoil';
@@ -34,8 +34,8 @@ function SaveModal({ isOpen, onClose }: SaveModalProps) {
   const handleSave = useCallback(async () => {
     try {
       setSaving(true);
-      const dto = chartToDTO(label.value, chart);
-      await workflowsService.createUsingPOST({ dto });
+      const createWorkflowDTO = chartToDTO(label.value, chart);
+      await workflowsService.create({ createWorkflowDTO });
     } catch (err) {
       let msg: string;
       if (err instanceof Response) msg = await extractResponseError(err);
@@ -83,7 +83,7 @@ function SaveModal({ isOpen, onClose }: SaveModalProps) {
           <Button
             isDisabled={saving}
             isLoading={saving}
-            variantColor="blue"
+            colorScheme="blue"
             onClick={handleSave}
           >
             Save

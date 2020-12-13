@@ -1,4 +1,4 @@
-import { Box, SimpleGrid } from '@chakra-ui/core';
+import { Box, SimpleGrid } from '@chakra-ui/react';
 import React, { Fragment } from 'react';
 import ConfigDrawer from './ConfigDrawer';
 import Controls, { ControlsProps } from './Controls';

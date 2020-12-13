@@ -1,4 +1,4 @@
-import { Button, Flex, Text } from '@chakra-ui/core';
+import { Button, Flex, Text } from '@chakra-ui/react';
 import { INodeInnerDefaultProps } from '@mrblenny/react-flow-chart';
 import React, { useCallback } from 'react';
 import { useSetRecoilState } from 'recoil';
@@ -14,7 +14,7 @@ function NodeInner({ node }: INodeInnerDefaultProps) {
   return (
     <Flex py={4} justify="center" align="center" direction="column">
       <Text>{node.properties.label}</Text>
-      <Button variantColor="teal" size="sm" onClick={handleConfigure}>
+      <Button colorScheme="teal" size="sm" onClick={handleConfigure}>
         Configure
       </Button>
     </Flex>

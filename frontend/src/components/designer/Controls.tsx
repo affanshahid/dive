@@ -1,4 +1,4 @@
-import { Box, Flex, FormControl, FormLabel, Input } from '@chakra-ui/core';
+import { Box, Flex, FormControl, FormLabel, Input } from '@chakra-ui/react';
 import React, { ChangeEvent, useCallback } from 'react';
 import { useRecoilState } from 'recoil';
 import { chartLabelState } from '../../state/designer';

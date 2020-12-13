@@ -2,14 +2,14 @@ import { IChart, INode, IPort } from '@mrblenny/react-flow-chart';
 import { v4 as uuid } from 'uuid';
 import {
   CreateWorkflowDTO,
-  NodeDTOOfobject,
+  NodeDTOObject,
   PortDTO,
   WorkflowTreeDTO,
 } from '../services/generated';
 import { createChartNodeProperties } from './helpers';
 
 export function chartToDTO(label: string, chart: IChart): CreateWorkflowDTO {
-  const nodes: NodeDTOOfobject[] = [];
+  const nodes: NodeDTOObject[] = [];
   const ports: PortDTO[] = [];
   const roots: string[] = [];
 

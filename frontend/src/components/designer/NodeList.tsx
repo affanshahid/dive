@@ -1,4 +1,4 @@
-import { List, ListItem, Skeleton } from '@chakra-ui/core';
+import { List, ListItem, Skeleton } from '@chakra-ui/react';
 import React, { ReactNode } from 'react';
 import { useRecoilValueLoadable } from 'recoil';
 import { nodesState } from '../../state/designer';

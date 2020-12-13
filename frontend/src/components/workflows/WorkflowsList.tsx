@@ -1,18 +1,18 @@
-import { Box, Divider, Skeleton } from "@chakra-ui/core";
-import React, { Fragment, ReactNode } from "react";
-import { useAsync } from "react-async";
-import { workflowsService } from "../../services";
-import WorkflowListItem from "./WorkflowListItem";
+import { Box, Divider, Skeleton } from '@chakra-ui/react';
+import React, { Fragment, ReactNode } from 'react';
+import { useAsync } from 'react-async';
+import { workflowsService } from '../../services';
+import WorkflowListItem from './WorkflowListItem';
 
 function WorkflowsList() {
   const { data: workflows, error, status, reload } = useAsync(
-    workflowsService.findAllUsingGET
+    workflowsService.findAll
   );
 
   let children: ReactNode;
 
-  if (status === "rejected") return <p>Error: {error!.message}</p>;
-  else if (status === "pending")
+  if (status === 'rejected') return <p>Error: {error!.message}</p>;
+  else if (status === 'pending')
     children = new Array(5).fill(0).map((_, i) => (
       <Fragment key={i}>
         <Skeleton w="full" height="25px" />

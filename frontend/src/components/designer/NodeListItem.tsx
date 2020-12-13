@@ -1,4 +1,4 @@
-import { ListIcon, ListItem } from '@chakra-ui/core';
+import { ListIcon, ListItem } from '@chakra-ui/react';
 import { IPort, REACT_FLOW_CHART } from '@mrblenny/react-flow-chart';
 import React, { DragEvent, useCallback, useMemo } from 'react';
 import { IconType } from 'react-icons';

@@ -1,6 +1,6 @@
+import { DeleteIcon } from '@chakra-ui/icons';
 import {
   Button,
-  Icon,
   Popover,
   PopoverArrow,
   PopoverCloseButton,
@@ -9,11 +9,11 @@ import {
   PopoverHeader,
   PopoverTrigger,
   useToast,
-} from "@chakra-ui/core";
-import React, { useCallback } from "react";
-import { workflowsService } from "../../services";
-import { extractResponseError } from "../../utils/errors";
-import { noop } from "../../utils/helpers";
+} from '@chakra-ui/react';
+import React, { useCallback } from 'react';
+import { workflowsService } from '../../services';
+import { extractResponseError } from '../../utils/errors';
+import { noop } from '../../utils/helpers';
 
 export interface DeleteButtonProps {
   workflowId: string;
@@ -25,13 +25,13 @@ function DeleteButton({ workflowId, onDelete = noop }: DeleteButtonProps) {
   const handleDelete = useCallback(async () => {
     try {
       toast({
-        status: "info",
-        title: "Deleting",
+        status: 'info',
+        title: 'Deleting',
       });
-      await workflowsService.deleteUsingDELETE({ id: workflowId });
+      await workflowsService._delete({ id: workflowId });
       toast({
-        status: "success",
-        title: "Deleted",
+        status: 'success',
+        title: 'Deleted',
       });
       onDelete();
     } catch (err) {
@@ -43,8 +43,8 @@ function DeleteButton({ workflowId, onDelete = noop }: DeleteButtonProps) {
       }
 
       toast({
-        status: "error",
-        title: "Error",
+        status: 'error',
+        title: 'Error',
         description: msg,
         isClosable: true,
       });
@@ -54,7 +54,7 @@ function DeleteButton({ workflowId, onDelete = noop }: DeleteButtonProps) {
   return (
     <Popover>
       <PopoverTrigger>
-        <Icon cursor="pointer" color="red.500" name="delete" />
+        <DeleteIcon cursor="pointer" color="red.500" />
       </PopoverTrigger>
       <PopoverContent zIndex={4}>
         <PopoverArrow />
@@ -71,7 +71,7 @@ function DeleteButton({ workflowId, onDelete = noop }: DeleteButtonProps) {
           flexDirection="row-reverse"
           pb={4}
         >
-          <Button onClick={handleDelete} size="sm" variantColor="red">
+          <Button onClick={handleDelete} size="sm" colorScheme="red">
             Yes
           </Button>
         </PopoverFooter>

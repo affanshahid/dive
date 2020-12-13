@@ -27,7 +27,8 @@ function CreateWorkflow() {
   }, [resetChart, resetLabel, resetSelectedNode]);
 
   const requestFn = useCallback(
-    () => workflowsService.createUsingPOST({ dto: chartToDTO(label, chart) }),
+    () =>
+      workflowsService.create({ createWorkflowDTO: chartToDTO(label, chart) }),
     [chart, label]
   );
 

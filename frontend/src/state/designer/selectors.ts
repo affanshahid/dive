@@ -8,7 +8,7 @@ export const nodesState = selector({
   key: 'designer/nodesState',
   async get({ get }) {
     try {
-      return await designerService.getNodesUsingGET();
+      return await designerService.getNodes();
     } catch (err) {
       throw new Error(await extractResponseError(err));
     }

@@ -1,4 +1,4 @@
-import { Box, Button, useToast } from '@chakra-ui/core';
+import { Box, Button, useToast } from '@chakra-ui/react';
 import { noop } from '@mrblenny/react-flow-chart';
 import React, { useCallback } from 'react';
 import { useAsync } from 'react-async';
@@ -62,7 +62,7 @@ function WorkflowButtons({ doSave, afterSave = noop }: WorkflowButtonsProps) {
         onClick={run}
         isLoading={status === 'pending'}
         w="full"
-        variantColor="teal"
+        colorScheme="teal"
       >
         Save
       </Button>

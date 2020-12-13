@@ -1,7 +1,7 @@
-import { Box, Heading, SimpleGrid } from "@chakra-ui/core";
-import React from "react";
-import Layout from "../Layout";
-import WorkflowsList from "./WorkflowsList";
+import { Box, Heading, SimpleGrid } from '@chakra-ui/react';
+import React from 'react';
+import Layout from '../Layout';
+import WorkflowsList from './WorkflowsList';
 
 function Workflows() {
   return (

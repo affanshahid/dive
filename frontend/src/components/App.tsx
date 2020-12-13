@@ -1,15 +1,14 @@
-import { CSSReset, theme, ThemeProvider } from "@chakra-ui/core";
-import React from "react";
-import { RecoilRoot } from "recoil";
-import Routes from "./Routes";
+import { ChakraProvider } from '@chakra-ui/react';
+import React from 'react';
+import { RecoilRoot } from 'recoil';
+import Routes from './Routes';
 
 function App() {
   return (
     <RecoilRoot>
-      <ThemeProvider theme={theme}>
-        <CSSReset />
+      <ChakraProvider>
         <Routes />
-      </ThemeProvider>
+      </ChakraProvider>
     </RecoilRoot>
   );
 }

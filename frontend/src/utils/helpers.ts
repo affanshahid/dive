@@ -1,4 +1,4 @@
-import { NodeDTOOfobject } from '../services/generated';
+import { NodeDTOObject } from '../services/generated';
 
 export const noop = () => {};
 
@@ -12,7 +12,7 @@ export type ChartNodeProperties = {
 };
 
 export function createChartNodeProperties(
-  node: NodeDTOOfobject
+  node: NodeDTOObject
 ): ChartNodeProperties {
   return {
     label: node.label,

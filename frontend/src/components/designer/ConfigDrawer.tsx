@@ -8,7 +8,7 @@ import {
   FormControl,
   FormLabel,
   Input,
-} from '@chakra-ui/core';
+} from '@chakra-ui/react';
 import Form from '@rjsf/core';
 import React, {
   ChangeEvent,

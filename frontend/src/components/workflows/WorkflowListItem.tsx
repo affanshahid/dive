@@ -1,11 +1,12 @@
-import { Box, Flex, Icon } from '@chakra-ui/core';
+import { ViewIcon } from '@chakra-ui/icons';
+import { Box, Flex } from '@chakra-ui/react';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { WorkflowDTOSummaryView } from '../../services/generated';
+import { WorkflowDTOSummary } from '../../services/generated';
 import DeleteButton from './DeleteButton';
 
 export interface WorkflowListItemProps {
-  workflow: WorkflowDTOSummaryView;
+  workflow: WorkflowDTOSummary;
   onDelete?: () => void;
 }
 
@@ -15,7 +16,7 @@ function WorkflowListItem({ workflow, onDelete }: WorkflowListItemProps) {
       {workflow.name}{' '}
       <Box>
         <Link to={`/designer/${workflow.id}`}>
-          <Icon mr={2} name="view" />
+          <ViewIcon mr={2} />
         </Link>
         <DeleteButton workflowId={workflow.id} onDelete={onDelete} />
       </Box>

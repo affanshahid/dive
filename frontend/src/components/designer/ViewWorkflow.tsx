@@ -4,7 +4,7 @@ import {
   AlertIcon,
   AlertTitle,
   Spinner,
-} from '@chakra-ui/core';
+} from '@chakra-ui/react';
 import React, { ReactNode, useCallback, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
@@ -28,7 +28,7 @@ function ViewWorkflow() {
     async function effect() {
       setStatus('pending');
       try {
-        const workflow = await workflowsService.findByIdUsingGET({
+        const workflow = await workflowsService.findById({
           id: workflowId,
         });
 
@@ -48,9 +48,9 @@ function ViewWorkflow() {
 
   const requestFn = useCallback(
     () =>
-      workflowsService.updateUsingPATCH({
+      workflowsService.update({
         id: workflowId,
-        dto: chartToDTO(label, chart),
+        updateWorkflowDTO: chartToDTO(label, chart),
       }),
     [chart, label, workflowId]
   );

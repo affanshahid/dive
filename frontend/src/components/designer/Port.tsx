@@ -1,7 +1,7 @@
-import { Flex, Tooltip } from "@chakra-ui/core";
-import { IPortDefaultProps } from "@mrblenny/react-flow-chart";
-import React from "react";
-import { ReactComponent as PortIcon } from "../../assets/port.svg";
+import { Flex, Tooltip } from '@chakra-ui/react';
+import { IPortDefaultProps } from '@mrblenny/react-flow-chart';
+import React from 'react';
+import { ReactComponent as PortIcon } from '../../assets/port.svg';
 
 function Port({ port }: IPortDefaultProps) {
   return (
