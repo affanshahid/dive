@@ -27,18 +27,18 @@ public class FilterRunner extends RunnerNode<Filter> {
 
     private boolean shouldSelect(DataRow row) {
         var val = row.get(getNode().getConfig().getFilterKey());
-        var fVal = getNode().getConfig().getFilterValue();
+        var expectedVal = getNode().getConfig().getFilterValue();
 
-        if (val == null && fVal == null)
-            return false;
+        if (val == null && expectedVal == null)
+            return true;
 
         if (val == null)
-            return true;
+            return false;
 
-        if (fVal == null)
-            return true;
+        if (expectedVal == null)
+            return false;
 
-        return !val.equals(fVal);
+        return val.equals(expectedVal);
     }
 
     @Override

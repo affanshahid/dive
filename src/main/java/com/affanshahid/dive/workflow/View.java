@@ -3,7 +3,7 @@ package com.affanshahid.dive.workflow;
 public class View<T> {
     private String id;
     private String label;
-    private Class<T> clazz;
+    private Class<T> dataClass;
 
     public View() {
     }
@@ -11,7 +11,7 @@ public class View<T> {
     public View(String id, String label, Class<T> clazz) {
         this.id = id;
         this.label = label;
-        this.clazz = clazz;
+        this.dataClass = clazz;
     }
 
     public String getLabel() {
@@ -26,14 +26,14 @@ public class View<T> {
         this.id = id;
     }
 
-    public String getClazz() {
-        return clazz.getName();
+    public String getDataClass() {
+        return dataClass.getName();
     }
 
-    public void setClazz(String className) throws ClassNotFoundException {
+    public void setDataClass(String className) throws ClassNotFoundException {
         @SuppressWarnings("unchecked")
         var clazz = (Class<T>) Class.forName(className);
-        this.clazz = clazz;
+        this.dataClass = clazz;
     }
 
     public void setLabel(String label) {
