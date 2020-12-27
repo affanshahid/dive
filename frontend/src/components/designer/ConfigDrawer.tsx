@@ -53,12 +53,11 @@ function ConfigDrawer() {
   if (selectedNode != null)
     body = (
       <Fragment>
-        <FormControl>
+        <FormControl id="label">
           <FormLabel htmlFor="label">Label</FormLabel>
           <Input
             ref={initialRef}
             type="text"
-            id="label"
             aria-describedby="enter-label"
             value={label!}
             onChange={handleLabelChange}

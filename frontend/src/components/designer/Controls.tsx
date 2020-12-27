@@ -19,7 +19,7 @@ function Controls({ doSave, afterSave }: ControlsProps) {
 
   return (
     <Flex direction="column" h="full" justify="space-between">
-      <FormControl mx={4}>
+      <FormControl px={4}>
         <FormLabel htmlFor="title">Title</FormLabel>
         <Input
           type="text"

@@ -15,7 +15,7 @@ function WorkflowsList() {
   else if (status === 'pending')
     children = new Array(5).fill(0).map((_, i) => (
       <Fragment key={i}>
-        <Skeleton w="full" height="25px" />
+        <Skeleton my={2} w="full" height="25px" />
         {i !== 4 && <Divider borderColor="red.200" />}
       </Fragment>
     ));

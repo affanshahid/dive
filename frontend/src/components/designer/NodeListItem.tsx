@@ -67,7 +67,7 @@ function NodeListItem({ node }: NodeListItemProps) {
       draggable={true}
       onDragStart={handleDragStart}
     >
-      <ListIcon icon={iconMapping[node.type]} color="black.500" />
+      <ListIcon as={iconMapping[node.type]} color="black.500" />
       {nodeName(node)}
     </ListItem>
   );

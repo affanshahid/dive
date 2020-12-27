@@ -14,7 +14,10 @@ function WorkflowCanvas() {
   const callbacks = useMemo(
     () =>
       mapValues(actions, (func: any, key) => (...args: any) =>
-        setChart((chart) => func(...args)(clone(chart)))
+        setChart((chart) => {
+          console.log(chart);
+          return func(...args)(clone(chart));
+        })
       ) as typeof actions,
     [setChart]
   );
