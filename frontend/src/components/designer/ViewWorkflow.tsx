@@ -5,75 +5,54 @@ import {
   AlertTitle,
   Spinner,
 } from '@chakra-ui/react';
-import React, { ReactNode, useCallback, useEffect, useState } from 'react';
+import { IChart } from '@mrblenny/react-flow-chart';
+import React, { ReactNode, useCallback } from 'react';
+import { useQuery } from 'react-query';
 import { useHistory, useParams } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { queryClient } from '../../query-client';
 import { workflowsService } from '../../services';
-import { WorkflowDTO } from '../../services/generated';
-import { chartLabelState, chartState } from '../../state/designer';
 import { chartToDTO, dtoToChart } from '../../utils/conversion';
-import { extractResponseError } from '../../utils/errors';
-import { Status } from '../../utils/helpers';
+import { throwErrorMessage } from '../../utils/errors';
 import Layout from '../Layout';
 import Designer from './Designer';
 
 function ViewWorkflow() {
+  const history = useHistory();
   const { workflowId } = useParams<any>();
-  const [status, setStatus] = useState<Status>('pending');
-  const [errMsg, setErrMsg] = useState<string | null>();
-  const [chart, setChart] = useRecoilState(chartState);
-  const [label, setLabel] = useRecoilState(chartLabelState);
-
-  useEffect(() => {
-    async function effect() {
-      setStatus('pending');
-      try {
-        const workflow = await workflowsService.findById({
-          id: workflowId,
-        });
-
-        setChart(dtoToChart(workflow.tree));
-        setLabel(workflow.name);
-
-        setStatus('resolved');
-      } catch (err) {
-        if (err instanceof Response) setErrMsg(await extractResponseError(err));
-        else setErrMsg(err.message);
-        setStatus('rejected');
-      }
-    }
-
-    effect();
-  }, [setChart, setLabel, workflowId]);
-
-  const requestFn = useCallback(
+  const { isLoading, isError, error, data } = useQuery(
+    ['workflows', workflowId],
     () =>
-      workflowsService.update({
-        id: workflowId,
-        updateWorkflowDTO: chartToDTO(label, chart),
-      }),
-    [chart, label, workflowId]
+      workflowsService
+        .findById({ id: workflowId })
+        .then((wf) => dtoToChart(wf.tree))
+        .catch(throwErrorMessage)
   );
 
-  const history = useHistory();
+  const handleSubmit = useCallback(
+    async (label: string, chart: IChart) => {
+      const result = await workflowsService.update({
+        id: workflowId,
+        updateWorkflowDTO: chartToDTO(label, chart),
+      });
 
-  const handleAfterSave = useCallback(
-    (dto: WorkflowDTO) => history.push(`/designer/${dto.id}`),
-    [history]
+      await queryClient.invalidateQueries(['workflows', workflowId]);
+      history.push(`/designer/${result.id}`);
+    },
+    [history, workflowId]
   );
 
   let children: ReactNode;
 
-  if (status === 'rejected')
+  if (isError)
     return (
       <Alert status="error">
         <AlertIcon />
         <AlertTitle mr={2}>Failed to load workflow</AlertTitle>
-        <AlertDescription>{errMsg}</AlertDescription>
+        <AlertDescription>{error as any}</AlertDescription>
       </Alert>
     );
-  else if (status === 'pending') children = <Spinner />;
-  else children = <Designer doSave={requestFn} afterSave={handleAfterSave} />;
+  else if (isLoading) children = <Spinner />;
+  else children = <Designer onSubmit={handleSubmit} initialChartState={data} />;
 
   return <Layout>{children}</Layout>;
 }

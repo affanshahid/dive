@@ -1,11 +1,10 @@
 import { Button, Flex, Text } from '@chakra-ui/react';
 import { INodeInnerDefaultProps } from '@mrblenny/react-flow-chart';
-import React, { useCallback } from 'react';
-import { useSetRecoilState } from 'recoil';
-import { selectedNodeIdState } from '../../state/designer';
+import React, { useCallback, useContext } from 'react';
+import { SelectedNodeContext } from './Designer';
 
 function NodeInner({ node }: INodeInnerDefaultProps) {
-  const setSelectedNodeId = useSetRecoilState(selectedNodeIdState);
+  const [, setSelectedNodeId] = useContext(SelectedNodeContext)!;
   const handleConfigure = useCallback(() => setSelectedNodeId(node.id), [
     node,
     setSelectedNodeId,

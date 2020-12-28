@@ -1,18 +1,19 @@
 import { Box, Divider, Skeleton } from '@chakra-ui/react';
 import React, { Fragment, ReactNode } from 'react';
-import { useAsync } from 'react-async';
+import { useQuery } from 'react-query';
 import { workflowsService } from '../../services';
 import WorkflowListItem from './WorkflowListItem';
 
 function WorkflowsList() {
-  const { data: workflows, error, status, reload } = useAsync(
+  const { isLoading, isError, error, data, refetch } = useQuery(
+    'workflows',
     workflowsService.findAll
   );
 
   let children: ReactNode;
 
-  if (status === 'rejected') return <p>Error: {error!.message}</p>;
-  else if (status === 'pending')
+  if (isError) return <p>Error: {error}</p>;
+  else if (isLoading)
     children = new Array(5).fill(0).map((_, i) => (
       <Fragment key={i}>
         <Skeleton my={2} w="full" height="25px" />
@@ -20,10 +21,10 @@ function WorkflowsList() {
       </Fragment>
     ));
   else
-    children = workflows!.map((workflow, i) => (
+    children = data!.map((workflow, i) => (
       <Fragment key={workflow.id}>
-        <WorkflowListItem workflow={workflow} onDelete={reload} />
-        {i !== workflows!.length - 1 && <Divider borderColor="red.200" />}
+        <WorkflowListItem workflow={workflow} onDelete={refetch} />
+        {i !== data!.length - 1 && <Divider borderColor="red.200" />}
       </Fragment>
     ));
 

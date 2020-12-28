@@ -8,47 +8,83 @@ import {
   FormControl,
   FormLabel,
   Input,
+  Spinner,
 } from '@chakra-ui/react';
+import { IChart } from '@mrblenny/react-flow-chart';
 import Form from '@rjsf/core';
+import clone from 'lodash.clonedeep';
 import React, {
   ChangeEvent,
   Fragment,
   ReactNode,
   useCallback,
+  useMemo,
   useRef,
 } from 'react';
-import {
-  useRecoilState,
-  useRecoilValue,
-  useResetRecoilState,
-  useSetRecoilState,
-} from 'recoil';
-import {
-  selectedNodeConfigSchemaState,
-  selectedNodeConfigState,
-  selectedNodeIdState,
-  selectedNodeLabelState,
-  selectedNodeState,
-} from '../../state/designer';
+import { useQuery } from 'react-query';
+import { designerService } from '../../services';
 
-function ConfigDrawer() {
+export interface ConfigDrawerProps {
+  selectedNodeId: string | null;
+  chart: IChart;
+  onClose: () => void;
+  onChange: (chart: IChart) => void;
+}
+
+function ConfigDrawer({
+  selectedNodeId,
+  chart,
+  onClose,
+  onChange,
+}: ConfigDrawerProps) {
+  const { data: nodes, isLoading } = useQuery(
+    'designerNodes',
+    designerService.getNodes
+  );
   const initialRef = useRef(null);
-  const selectedNode = useRecoilValue(selectedNodeState);
-  const resetSelectedNode = useResetRecoilState(selectedNodeIdState);
-  const setConfig = useSetRecoilState(selectedNodeConfigState);
-  const handleChange = useCallback((event: any) => setConfig(event.formData), [
-    setConfig,
-  ]);
+  const selectedNode = useMemo(() => {
+    if (selectedNodeId == null) return null;
 
-  const configSchema = useRecoilValue(selectedNodeConfigSchemaState);
+    return Object.values(chart.nodes).find(
+      (node) => node.id === selectedNodeId
+    );
+  }, [chart.nodes, selectedNodeId]);
 
-  const [label, setLabel] = useRecoilState(selectedNodeLabelState);
+  const handleChange = useCallback(
+    (event: any) => {
+      if (selectedNodeId == null) return;
+
+      const cloned = clone(chart);
+      cloned.nodes[selectedNodeId!].properties.config = event.formData;
+      onChange(cloned);
+    },
+    [chart, onChange, selectedNodeId]
+  );
+
+  const configSchema = useMemo(() => {
+    if (selectedNode == null || nodes == null) return;
+
+    const node = nodes.find(
+      (node) => node.configClassName === selectedNode.properties.configClassName
+    );
+    return node?.configSchema;
+  }, [nodes, selectedNode]);
+
   const handleLabelChange = useCallback(
-    (event: ChangeEvent<HTMLInputElement>) => setLabel(event.target.value),
-    [setLabel]
+    (event: ChangeEvent<HTMLInputElement>) => {
+      if (selectedNode == null) return;
+
+      const cloned = clone(chart);
+
+      cloned.nodes[selectedNode.id].properties.label = event.target.value;
+      onChange(cloned);
+    },
+    [chart, onChange, selectedNode]
   );
 
   let body: ReactNode = null;
+
+  if (isLoading) body = <Spinner size="xl" />;
 
   if (selectedNode != null)
     body = (
@@ -59,7 +95,7 @@ function ConfigDrawer() {
             ref={initialRef}
             type="text"
             aria-describedby="enter-label"
-            value={label!}
+            value={selectedNode!.properties.label}
             onChange={handleLabelChange}
           />
         </FormControl>
@@ -77,8 +113,8 @@ function ConfigDrawer() {
     <Drawer
       initialFocusRef={initialRef}
       placement="right"
-      isOpen={selectedNode != null}
-      onClose={resetSelectedNode}
+      isOpen={selectedNodeId != null}
+      onClose={onClose}
     >
       <DrawerOverlay />
       <DrawerContent>

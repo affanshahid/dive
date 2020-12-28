@@ -1,20 +1,27 @@
-import { Box, Flex, FormControl, FormLabel, Input } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Flex,
+  FormControl,
+  FormLabel,
+  Input,
+} from '@chakra-ui/react';
 import React, { ChangeEvent, useCallback } from 'react';
-import { useRecoilState } from 'recoil';
-import { chartLabelState } from '../../state/designer';
+import { useAsync } from '../../hooks/useAsync';
 import NodeList from './NodeList';
-import WorkflowButtons, { WorkflowButtonsProps } from './WorkflowButtons';
 
 export interface ControlsProps {
-  doSave: WorkflowButtonsProps['doSave'];
-  afterSave: WorkflowButtonsProps['afterSave'];
+  label: string;
+  onSubmit: () => any;
+  onClear: () => void;
+  onChangeLabel: (label: string) => void;
 }
 
-function Controls({ doSave, afterSave }: ControlsProps) {
-  const [label, setLabel] = useRecoilState(chartLabelState);
+function Controls({ onSubmit, onClear, label, onChangeLabel }: ControlsProps) {
+  const { run, status } = useAsync(onSubmit);
   const handleChangeInput = useCallback(
-    (event: ChangeEvent<HTMLInputElement>) => setLabel(event.target.value),
-    [setLabel]
+    (event: ChangeEvent<HTMLInputElement>) => onChangeLabel(event.target.value),
+    [onChangeLabel]
   );
 
   return (
@@ -27,12 +34,30 @@ function Controls({ doSave, afterSave }: ControlsProps) {
           aria-describedby="enter-title"
           onChange={handleChangeInput}
           value={label}
+          disabled={status === 'pending'}
         />
       </FormControl>
       <Box flexGrow={2}>
         <NodeList />
       </Box>
-      <WorkflowButtons doSave={doSave} afterSave={afterSave} />
+      <Box px={3} py={3}>
+        <Button
+          isLoading={status === 'pending'}
+          w="full"
+          mb={2}
+          onClick={onClear}
+        >
+          Clear
+        </Button>
+        <Button
+          isLoading={status === 'pending'}
+          w="full"
+          colorScheme="teal"
+          onClick={run}
+        >
+          Save
+        </Button>
+      </Box>
     </Flex>
   );
 }

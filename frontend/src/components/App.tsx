@@ -1,15 +1,16 @@
 import { ChakraProvider } from '@chakra-ui/react';
 import React from 'react';
-import { RecoilRoot } from 'recoil';
+import { QueryClientProvider } from 'react-query';
+import { queryClient } from '../query-client';
 import Routes from './Routes';
 
 function App() {
   return (
-    <RecoilRoot>
+    <QueryClientProvider client={queryClient}>
       <ChakraProvider>
         <Routes />
       </ChakraProvider>
-    </RecoilRoot>
+    </QueryClientProvider>
   );
 }
 
