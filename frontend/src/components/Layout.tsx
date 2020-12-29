@@ -1,5 +1,6 @@
 import { Box } from '@chakra-ui/react';
 import React, { ReactNode } from 'react';
+import { GlobalErrorBoundary } from './GlobalErrorBoundary';
 import Header from './Header';
 
 export interface LayoutProps {
@@ -10,7 +11,7 @@ function Layout({ children }: LayoutProps) {
   return (
     <Box>
       <Header />
-      {children}
+      <GlobalErrorBoundary>{children}</GlobalErrorBoundary>
     </Box>
   );
 }

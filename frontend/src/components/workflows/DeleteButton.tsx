@@ -12,7 +12,6 @@ import {
 } from '@chakra-ui/react';
 import React, { useCallback } from 'react';
 import { workflowsService } from '../../services';
-import { extractResponseError } from '../../utils/errors';
 import { noop } from '../../utils/helpers';
 
 export interface DeleteButtonProps {
@@ -23,32 +22,16 @@ export interface DeleteButtonProps {
 function DeleteButton({ workflowId, onDelete = noop }: DeleteButtonProps) {
   const toast = useToast();
   const handleDelete = useCallback(async () => {
-    try {
-      toast({
-        status: 'info',
-        title: 'Deleting',
-      });
-      await workflowsService._delete({ id: workflowId });
-      toast({
-        status: 'success',
-        title: 'Deleted',
-      });
-      onDelete();
-    } catch (err) {
-      let msg: string;
-      if (err instanceof Response) {
-        msg = await extractResponseError(err);
-      } else {
-        msg = err.message;
-      }
-
-      toast({
-        status: 'error',
-        title: 'Error',
-        description: msg,
-        isClosable: true,
-      });
-    }
+    toast({
+      status: 'info',
+      title: 'Deleting',
+    });
+    await workflowsService._delete({ id: workflowId });
+    toast({
+      status: 'success',
+      title: 'Deleted',
+    });
+    onDelete();
   }, [onDelete, toast, workflowId]);
 
   return (

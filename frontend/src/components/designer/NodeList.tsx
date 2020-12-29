@@ -2,18 +2,17 @@ import { List, ListItem, Skeleton } from '@chakra-ui/react';
 import React, { ReactNode } from 'react';
 import { useQuery } from 'react-query';
 import { designerService } from '../../services';
-import { throwErrorMessage } from '../../utils/errors';
 import NodeListItem from './NodeListItem';
 
 function NodeList() {
-  const { isError, isLoading, data, error } = useQuery('designerNodes', () =>
-    designerService.getNodes().catch(throwErrorMessage)
+  const { isLoading, data } = useQuery(
+    'designerNodes',
+    designerService.getNodes
   );
 
   let children: ReactNode;
 
-  if (isError) return <p>Error: {error}</p>;
-  else if (isLoading)
+  if (isLoading)
     children = new Array(15).fill(0).map((_, i) => (
       <ListItem w="full" key={i}>
         <Skeleton mx={4} height="25px" />

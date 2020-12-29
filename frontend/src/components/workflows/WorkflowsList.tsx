@@ -5,15 +5,14 @@ import { workflowsService } from '../../services';
 import WorkflowListItem from './WorkflowListItem';
 
 function WorkflowsList() {
-  const { isLoading, isError, error, data, refetch } = useQuery(
+  const { isLoading, data, refetch } = useQuery(
     'workflows',
     workflowsService.findAll
   );
 
   let children: ReactNode;
 
-  if (isError) return <p>Error: {error}</p>;
-  else if (isLoading)
+  if (isLoading)
     children = new Array(5).fill(0).map((_, i) => (
       <Fragment key={i}>
         <Skeleton my={2} w="full" height="25px" />
