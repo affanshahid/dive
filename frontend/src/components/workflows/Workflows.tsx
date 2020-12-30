@@ -1,6 +1,7 @@
 import { Box, Heading, SimpleGrid } from '@chakra-ui/react';
-import React from 'react';
+import React, { Suspense } from 'react';
 import Layout from '../Layout';
+import { WorkflowListSkeleton } from './WorkflowListSkeleton';
 import WorkflowsList from './WorkflowsList';
 
 function Workflows() {
@@ -17,7 +18,9 @@ function Workflows() {
           gridColumn="4/10"
           gridRow="2/3"
         >
-          <WorkflowsList />
+          <Suspense fallback={<WorkflowListSkeleton />}>
+            <WorkflowsList />
+          </Suspense>
         </Box>
       </SimpleGrid>
     </Layout>

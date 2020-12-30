@@ -8,7 +8,6 @@ import {
   FormControl,
   FormLabel,
   Input,
-  Spinner,
 } from '@chakra-ui/react';
 import { IChart } from '@mrblenny/react-flow-chart';
 import Form from '@rjsf/core';
@@ -16,7 +15,6 @@ import clone from 'lodash.clonedeep';
 import React, {
   ChangeEvent,
   Fragment,
-  ReactNode,
   useCallback,
   useMemo,
   useRef,
@@ -37,10 +35,8 @@ function ConfigDrawer({
   onClose,
   onChange,
 }: ConfigDrawerProps) {
-  const { data: nodes, isLoading } = useQuery(
-    'designerNodes',
-    designerService.getNodes
-  );
+  const { data: nodes } = useQuery('designerNodes', designerService.getNodes);
+
   const initialRef = useRef(null);
   const selectedNode = useMemo(() => {
     if (selectedNodeId == null) return null;
@@ -82,33 +78,6 @@ function ConfigDrawer({
     [chart, onChange, selectedNode]
   );
 
-  let body: ReactNode = null;
-
-  if (isLoading) body = <Spinner size="xl" />;
-
-  if (selectedNode != null)
-    body = (
-      <Fragment>
-        <FormControl id="label">
-          <FormLabel htmlFor="label">Label</FormLabel>
-          <Input
-            ref={initialRef}
-            type="text"
-            aria-describedby="enter-label"
-            value={selectedNode!.properties.label}
-            onChange={handleLabelChange}
-          />
-        </FormControl>
-        <Form
-          formData={selectedNode.properties.config}
-          schema={configSchema!}
-          onChange={handleChange}
-        >
-          <button type="submit" style={{ display: 'none' }} />
-        </Form>
-      </Fragment>
-    );
-
   return (
     <Drawer
       initialFocusRef={initialRef}
@@ -120,7 +89,29 @@ function ConfigDrawer({
       <DrawerContent>
         <DrawerCloseButton />
         <DrawerHeader>{selectedNode?.properties.label}</DrawerHeader>
-        <DrawerBody>{body}</DrawerBody>
+        <DrawerBody>
+          {selectedNode && (
+            <Fragment>
+              <FormControl id="label">
+                <FormLabel htmlFor="label">Label</FormLabel>
+                <Input
+                  ref={initialRef}
+                  type="text"
+                  aria-describedby="enter-label"
+                  value={selectedNode!.properties.label}
+                  onChange={handleLabelChange}
+                />
+              </FormControl>
+              <Form
+                formData={selectedNode.properties.config}
+                schema={configSchema!}
+                onChange={handleChange}
+              >
+                <button type="submit" style={{ display: 'none' }} />
+              </Form>
+            </Fragment>
+          )}
+        </DrawerBody>
       </DrawerContent>
     </Drawer>
   );

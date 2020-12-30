@@ -1,5 +1,5 @@
-import { Box } from '@chakra-ui/react';
-import React, { ReactNode } from 'react';
+import { Box, Spinner } from '@chakra-ui/react';
+import React, { ReactNode, Suspense } from 'react';
 import { GlobalErrorBoundary } from './GlobalErrorBoundary';
 import Header from './Header';
 
@@ -11,7 +11,9 @@ function Layout({ children }: LayoutProps) {
   return (
     <Box>
       <Header />
-      <GlobalErrorBoundary>{children}</GlobalErrorBoundary>
+      <Suspense fallback={<Spinner />}>
+        <GlobalErrorBoundary>{children}</GlobalErrorBoundary>
+      </Suspense>
     </Box>
   );
 }
