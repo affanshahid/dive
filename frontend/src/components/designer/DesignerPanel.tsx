@@ -10,14 +10,19 @@ import React, { ChangeEvent, useCallback } from 'react';
 import { useAsync } from '../../hooks/useAsync';
 import NodeList from './NodeList';
 
-export interface ControlsProps {
+export interface DesignerPanelProps {
   label: string;
   onSubmit: () => any;
   onClear: () => void;
   onChangeLabel: (label: string) => void;
 }
 
-function Controls({ onSubmit, onClear, label, onChangeLabel }: ControlsProps) {
+function DesignerPanel({
+  onSubmit,
+  onClear,
+  label,
+  onChangeLabel,
+}: DesignerPanelProps) {
   const { run, status } = useAsync(onSubmit);
   const handleChangeInput = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => onChangeLabel(event.target.value),
@@ -62,4 +67,4 @@ function Controls({ onSubmit, onClear, label, onChangeLabel }: ControlsProps) {
   );
 }
 
-export default Controls;
+export default DesignerPanel;

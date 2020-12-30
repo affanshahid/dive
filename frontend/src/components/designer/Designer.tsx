@@ -2,7 +2,7 @@ import { Box, SimpleGrid } from '@chakra-ui/react';
 import { IChart } from '@mrblenny/react-flow-chart';
 import React, { createContext, Fragment, useCallback, useState } from 'react';
 import ConfigDrawer from './ConfigDrawer';
-import Controls from './Controls';
+import DesignerPanel from './DesignerPanel';
 import WorkflowCanvas from './WorkflowCanvas';
 
 const defaultChartState: () => IChart = () => ({
@@ -55,7 +55,7 @@ function Designer({ onSubmit, initialChartState }: DesignerProps) {
       />
       <SimpleGrid columns={12} spacing={0} h="calc(100vh - 86px)">
         <Box gridColumn="1/4" shadow="lg">
-          <Controls
+          <DesignerPanel
             onSubmit={handleSubmit}
             onClear={handleClear}
             label={label}
