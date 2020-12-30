@@ -5,6 +5,7 @@ import { queryClient } from '../../query-client';
 import { workflowsService } from '../../services';
 import { chartToDTO, dtoToChart } from '../../utils/conversion';
 import Designer from './Designer';
+import { WorkflowControls } from './WorkflowControls';
 
 export interface WorkflowEditorProps {
   workflowId: string;
@@ -29,7 +30,13 @@ function WorkflowEditor({ workflowId }: WorkflowEditorProps) {
     [workflowId]
   );
 
-  return <Designer onSubmit={handleSubmit} initialChartState={data} />;
+  return (
+    <Designer
+      controls={<WorkflowControls workflowId={workflowId} />}
+      onSubmit={handleSubmit}
+      initialChartState={data}
+    />
+  );
 }
 
 export default WorkflowEditor;

@@ -1,6 +1,12 @@
 import { Box, SimpleGrid } from '@chakra-ui/react';
 import { IChart } from '@mrblenny/react-flow-chart';
-import React, { createContext, Fragment, useCallback, useState } from 'react';
+import React, {
+  createContext,
+  Fragment,
+  ReactNode,
+  useCallback,
+  useState,
+} from 'react';
 import ConfigDrawer from './ConfigDrawer';
 import DesignerPanel from './DesignerPanel';
 import WorkflowCanvas from './WorkflowCanvas';
@@ -26,9 +32,10 @@ export const SelectedNodeContext = createContext<UseSelectedNodeState | null>(
 export interface DesignerProps {
   onSubmit: (label: string, chart: IChart) => Promise<void>;
   initialChartState?: IChart;
+  controls?: ReactNode;
 }
 
-function Designer({ onSubmit, initialChartState }: DesignerProps) {
+function Designer({ onSubmit, initialChartState, controls }: DesignerProps) {
   const [label, setLabel] = useState('');
   const [chart, setChart] = useState(initialChartState ?? defaultChartState());
   const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null);
@@ -63,6 +70,7 @@ function Designer({ onSubmit, initialChartState }: DesignerProps) {
           />
         </Box>
         <Box gridColumn="4/13" flexGrow={4} overflow="hidden">
+          {controls}
           <SelectedNodeContext.Provider
             value={[selectedNodeId, setSelectedNodeId]}
           >

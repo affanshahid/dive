@@ -1,3 +1,4 @@
+import { Center } from '@chakra-ui/react';
 import { IChart } from '@mrblenny/react-flow-chart';
 import React, { useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
@@ -6,6 +7,14 @@ import { workflowsService } from '../../services';
 import { chartToDTO } from '../../utils/conversion';
 import Layout from '../Layout';
 import Designer from './Designer';
+
+function DisabledControlsMessage() {
+  return (
+    <Center shadow="lg" width="100%" height="40px">
+      Please save the workflow to access controls
+    </Center>
+  );
+}
 
 function CreateWorkflow() {
   const history = useHistory();
@@ -24,7 +33,10 @@ function CreateWorkflow() {
 
   return (
     <Layout>
-      <Designer onSubmit={handleSubmit} />
+      <Designer
+        controls={<DisabledControlsMessage />}
+        onSubmit={handleSubmit}
+      />
     </Layout>
   );
 }

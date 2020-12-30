@@ -11,7 +11,6 @@ function ViewWorkflow() {
     <Layout>
       <Suspense fallback={<DesignerSkeleton />}>
         <WorkflowEditor workflowId={workflowId} />
-        {/* <DesignerSkeleton /> */}
       </Suspense>
     </Layout>
   );
